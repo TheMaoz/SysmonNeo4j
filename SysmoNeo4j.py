@@ -1,5 +1,7 @@
 import argparse
 import datetime
+import json
+from evtx import PyEvtxParser
 
 def valid_date(s):
     try:
@@ -7,6 +9,24 @@ def valid_date(s):
     except ValueError:
         msg = "not a valid date: {0!r}".format(s)
         raise argparse.ArgumentTypeError(msg)
+
+def get_json_from_sample(sample):
+    """
+    :desc: This function gets sysmon sample of type evtx and returns a list of sysmon events
+    sample: evtx file sample
+    event_list → list of sysmon events
+    """
+
+    event_list = []
+    try:
+        parser = PyEvtxParser(sample)
+        for record in parser.records_json():
+            event_list.append(json.loads(record['data']))
+    except Exception as e:
+        # TODO: Create a logger
+        print(e)
+        return None
+    return event_list
 
 def main():
     parser = argparse.ArgumentParser(description='Description of your program')
