@@ -30,6 +30,7 @@ def get_json_from_sample(sample):
         return None
     return event_list
 
+<<<<<<< HEAD
 
 def filter_events_by_time(events, start_time, end_time):
     """
@@ -75,6 +76,8 @@ def select_event_fields(events):
 
 
 
+=======
+>>>>>>> 21a6cfab24d2015ada1cfe964122f1f4f02305b5
 # Define the functions that will be running
 def run(url_db, username, password, directory, neo4jbrowser, graphlytic):
     set_import_path(directory)
