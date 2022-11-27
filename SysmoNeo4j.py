@@ -3,11 +3,11 @@ import datetime
 import json
 from evtx import PyEvtxParser
 
-def valid_date(s):
+def valid_time(s):
     try:
         return datetime.strptime(s, "%Y-%m-%d-%H:%M:%S")
     except ValueError:
-        msg = "not a valid date: {0!r}".format(s)
+        msg = "not a valid time: {0!r}".format(s)
         raise argparse.ArgumentTypeError(msg)
 
 def get_json_from_sample(sample):
@@ -36,15 +36,15 @@ def main():
     "--startdate", 
     help="The Start Time - format YYYY-mm-dd-:HH:MM:SS", 
     required=True, 
-    type=valid_date
+    type=valid_time
     )
 
     parser.add_argument(
     "-e", 
     "--enddate", 
-    help="The End Time format YYYY-mm-dd-:HH:MM:SS (Inclusive)", 
+    help="The End Time format YYYY-mm-dd-:HH:MM:SS", 
     required=True, 
-    type=valid_date
+    type=valid_time
     )
 
     parser.add_argument('-f','--file', help='Path to json input file', required=True)
