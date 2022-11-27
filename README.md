@@ -1,10 +1,6 @@
 # SysmoNeo4j
 Open Source Tool - Sysmon Neo4j Visulaizer
 
-
-**|G|r|a|p|h|K|e|r|**
-
-
 # **Prerequisites**
 
 _3 + 1 Steps to run SysmoNeo4j Tool_
@@ -98,7 +94,7 @@ _3 + 1 Steps to run SysmoNeo4j Tool_
      - Graphlytic: Third-Party App, better graph presentations, but most important auto-analytics and statistics. Free and Paid Editions. We can do the most locally with free edition. Learn More: https://graphlytic.biz/
      - Neo4j Database Analyzer: Third-Party App, Free, provides great analysis tools for our Data and our Schema. Learn More: https://community.neo4j.com/t/introducing-the-neo4j-database-analyzer/6197
 
-# **Run GraphKer**
+# **Run SysmoNeo4j**
 
 ```
 // Default
