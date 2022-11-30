@@ -1,5 +1,5 @@
 import argparse
-import datetime
+from datetime import datetime
 import json
 import webbrowser
 from evtx import PyEvtxParser
@@ -30,6 +30,54 @@ def get_json_from_sample(sample):
         return None
     return event_list
 
+<<<<<<< HEAD
+
+def filter_events_by_time(events, start_time, end_time):
+    """
+    :desc: This function sorts list by time, then filters said list by time range specified by user.
+    events: list to sort and filter.
+    start_time & end_time: specified by user in CLI.
+    logs → sorted and filtered list.
+    """
+    logs = []
+    events.sort(key=lambda x: x['Event']["System"]["TimeCreated"]["#attributes"]["SystemTime"])
+    for event in events:
+        event_time = event['Event']["System"]["TimeCreated"]["#attributes"]["SystemTime"]
+        event_time = event_time[:event_time.find("."):]
+        event_time = datetime.strptime(event_time, "%Y-%m-%dT%H:%M:%S")
+        if start_time <= event_time <= end_time:
+            logs.append(event)
+    return logs
+
+
+def select_event_fields(events):
+    """
+    :desc: This function chooses fields for each event specified in 'fields.yml' file.
+    :return: a list of events ready to enter db
+    TODO: connect processes by events 1&5 with identical PID's.
+  
+    logs = {}
+    log = {}
+    fields = []
+    with open("fields.yml", 'r') as file:
+        yml_fields = yaml.safe_load(file)["fields"]
+        for item in yml_fields:
+            fields.append(item)
+    for event in events:
+        for field in fields:
+            # print(event['Event'])
+            p = tuple(field['path'].split('/'))
+            for i in range(len(p)):
+                v = event[p[i]]
+        Still a work in progress...
+    """
+
+
+
+
+
+=======
+>>>>>>> 21a6cfab24d2015ada1cfe964122f1f4f02305b5
 # Define the functions that will be running
 def run(url_db, username, password, directory, neo4jbrowser, graphlytic):
     set_import_path(directory)
