@@ -1,0 +1,69 @@
+{
+    "Event": {
+        "#attributes": {
+            "xmlns": "http://schemas.microsoft.com/win/2004/08/events/event"
+        },
+        "EventData": {
+            "CommandLine": "taskhostw.exe {222A245B-E637-4AE9-A93F-A59CA119A75E}",
+            "Company": "Microsoft Corporation",
+            "CurrentDirectory": "C:\\Windows\\system32\\",
+            "Description": "Host Process for Windows Tasks",
+            "FileVersion": "10.0.19041.1865 (WinBuild.160101.0800)",
+            "Hashes": "SHA256=E63709209D09BC0247E785F075DDB28A98C348206109E2B8BA321AD958402728",
+            "Image": "C:\\Windows\\System32\\taskhostw.exe",
+            "IntegrityLevel": "System",
+            "LogonGuid": "CF649360-2DF1-637D-E703-000000000000",
+            "LogonId": "0x3e7",
+            "OriginalFileName": "taskhostw.exe",
+            "ParentCommandLine": "C:\\Windows\\system32\\svchost.exe -k netsvcs -p",
+            "ParentImage": "C:\\Windows\\System32\\svchost.exe",
+            "ParentProcessGuid": "CF649360-2DF2-637D-1300-000000000800",
+            "ParentProcessId": 356,
+            "ParentUser": "NT AUTHORITY\\SYSTEM",
+            "ProcessGuid": "CF649360-314D-637D-7001-000000000800",
+            "ProcessId": 5792,
+            "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+            "RuleName": "-",
+            "TerminalSessionId": 0,
+            "User": "NT AUTHORITY\\SYSTEM",
+            "UtcTime": "2022-11-22 20:30:05.996"
+        },
+        "System": {
+            "Channel": "Microsoft-Windows-Sysmon/Operational",
+            "Computer": "DESKTOP-6QPQIFS",
+            "Correlation": null,
+            "EventID": 1,
+            "EventRecordID": 75,
+            "Execution": {
+                "#attributes": {
+                    "ProcessID": 1316,
+                    "ThreadID": 6288
+                }
+            },
+            "Keywords": "0x8000000000000000",
+            "Level": 4,
+            "Opcode": 0,
+            "Provider": {
+                "#attributes": {
+                    "Guid": "5770385F-C22A-43E0-BF4C-06F5698FFBD9",
+                    "Name": "Microsoft-Windows-Sysmon"
+                }
+            },
+            "Security": {
+                "#attributes": {
+                    "UserID": "S-1-5-18"
+                }
+            },
+            "Task": 1,
+            "TimeCreated": {
+                "#attributes": {
+                    "SystemTime": "2022-11-22T20:30:06.025820Z"
+                }
+            },
+            "Version": 5
+        }
+    }
+}
+
+
+
