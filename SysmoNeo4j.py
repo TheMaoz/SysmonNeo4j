@@ -77,11 +77,11 @@ def parse_process(events):
             elif pid not in pid_list and eventId == 5:
                 continue
             process = {
-                "Parent PID": ppid,
+                "PPID": ppid,
                 "PID": pid,
                 "Image": image,
-                "File Name": filename,
-                "Command Line": cmd,
+                "FileName": filename,
+                "CommandLine": cmd,
                 "Username": user,
                 "StartTime": event_time
                 # starttime stays last to stay close to endtime
@@ -143,6 +143,7 @@ def main():
                         help='Path to json input file')
 
     args = parser.parse_args()
+    """
     if args.neo4jbrowser == "y" or args.neo4jbrowser == "Y":
         neo4jbrowser_open = True
     else:
@@ -153,13 +154,20 @@ def main():
         graphlytic_open = False
     # run(args.urldb, args.username, args.password,
     # args.directory, neo4jbrowser_open, graphlytic_open)
+    """
     return
 
 
-if __name__ == "__main__":
-    #   main()
+def maozTest():
     start = valid_time("2022-11-22-20:30:05")
     end = valid_time("2022-11-22-20:30:35")
-    list = parse_process(filter_events_by_time(get_json_from_sample("firstsample.evtx"),start,end))
+    list = parse_process(filter_events_by_time(get_json_from_sample("firstsample.evtx"), start, end))
+    st = "["
     for item in list:
-        print(json.dumps(item, indent=4))
+        st += json.dumps(item, indent=4) + ','
+    st = st[:len(st) - 1] + "]"
+    print(st)
+
+
+if __name__ == "__main__":
+    main()

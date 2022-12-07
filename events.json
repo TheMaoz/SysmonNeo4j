@@ -1,0 +1,168 @@
+{	
+		"data":[
+		{
+			"Parent PID": 308,
+			"PID": 2612,
+			"Image": "C:\\Windows\\System32\\smss.exe",
+			"File Name": "smss.exe",
+			"Command Line": "\\SystemRoot\\System32\\smss.exe 000000e4 00000084 ",
+			"Username": "NT AUTHORITY\\SYSTEM",
+			"StartTime": "2022-11-22 20:30:05",
+			"EndTime": "2022-11-22 20:30:06"
+		},
+		
+		{
+			"Parent PID": 2612,
+			"PID": 3312,
+			"Image": "C:\\Windows\\System32\\csrss.exe",
+			"File Name": "CSRSS.Exe",
+			"Command Line": "%%SystemRoot%%\\system32\\csrss.exe ObjectDirectory=\\Windows SharedSection=1024,20480,768 Windows=On SubSystemType=Windows ServerDll=basesrv,1 ServerDll=winsrv:UserServerDllInitialization,3 ServerDll=sxssrv,4 ProfileControl=Off MaxRequestThreads=16",
+			"Username": "NT AUTHORITY\\SYSTEM",
+			"StartTime": "2022-11-22 20:30:05"
+		},
+		{
+			"Parent PID": 760,
+			"PID": 1104,
+			"Image": "C:\\Windows\\System32\\MoUsoCoreWorker.exe",
+			"File Name": "MoUSOCoreWorker.exe",
+			"Command Line": "C:\\Windows\\System32\\mousocoreworker.exe -Embedding",
+			"Username": "NT AUTHORITY\\SYSTEM",
+			"StartTime": "2022-11-22 20:30:05"
+		},
+		{
+			"Parent PID": 356,
+			"PID": 4892,
+			"Image": "C:\\Windows\\System32\\provtool.exe",
+			"File Name": "provtool",
+			"Command Line": "C:\\Windows\\system32\\ProvTool.exe /turn 5 /source LogonIdleTask",
+			"Username": "NT AUTHORITY\\SYSTEM",
+			"StartTime": "2022-11-22 20:30:05",
+			"EndTime": "2022-11-22 20:30:07"
+		},
+		{
+			"Parent PID": 356,
+			"PID": 5792,
+			"Image": "C:\\Windows\\System32\\taskhostw.exe",
+			"File Name": "taskhostw.exe",
+			"Command Line": "taskhostw.exe {222A245B-E637-4AE9-A93F-A59CA119A75E},",
+			"Username": "NT AUTHORITY\\SYSTEM",
+			"StartTime": "2022-11-22 20:30:05",
+			"EndTime": "2022-11-22 20:30:07"
+		},
+		{
+			"Parent PID": 2612,
+			"PID": 5328,
+			"Image": "C:\\Windows\\System32\\winlogon.exe",
+			"File Name": "WINLOGON.EXE",
+			"Command Line": "winlogon.exe",
+			"Username": "NT AUTHORITY\\SYSTEM",
+			"StartTime": "2022-11-22 20:30:05"
+		},
+		{
+			"Parent PID": 2612,
+			"PID": 2612,
+			"Image": "C:\\Windows\\System32\\winlogon.exe",
+			"File Name": "WINLOGON.EXE",
+			"Command Line": "winlogon.exe",
+			"Username": "NT AUTHORITY\\SYSTEM",
+			"StartTime": "2022-11-22 20:30:05",
+			"EndTime": "2022-11-22 20:30:06"
+		},
+		{
+			"Parent PID": 356,
+			"PID": 5864,
+			"Image": "C:\\Windows\\System32\\taskhostw.exe",
+			"File Name": "taskhostw.exe",
+			"Command Line": "taskhostw.exe C:\\Windows\\system32\\ProvTool.exe /turn 5 /source LogonIdleTask",
+			"Username": "NT AUTHORITY\\SYSTEM",
+			"StartTime": "2022-11-22 20:30:06",
+			"EndTime": "2022-11-22 20:30:07"
+		},
+		{
+			"Parent PID": 5328,
+			"PID": 6256,
+			"Image": "C:\\Windows\\System32\\LogonUI.exe",
+			"File Name": "logonui.exe",
+			"Command Line": "\"LogonUI.exe\" /flags:0x2 /state0:0xa3f7d055 /state1:0x41c64e6d",
+			"Username": "NT AUTHORITY\\SYSTEM",
+			"StartTime": "2022-11-22 20:30:06",
+			"EndTime": "2022-11-22 20:30:23"
+		},
+		{
+			"Parent PID": 5328,
+			"PID": 6820,
+			"Image": "C:\\Windows\\System32\\dwm.exe",
+			"File Name": "dwm.exe",
+			"Command Line": "\"dwm.exe\"",
+			"Username": "Window Manager\\DWM-2",
+			"StartTime": "2022-11-22 20:30:06"
+		},
+		{
+			"Parent PID": 5328,
+			"PID": 6188,
+			"Image": "C:\\Windows\\System32\\fontdrvhost.exe",
+			"File Name": "fontdrvhost.exe",
+			"Command Line": "\"fontdrvhost.exe\"",
+			"Username": "Font Driver Host\\UMFD-2",
+			"StartTime": "2022-11-22 20:30:06"
+		},
+		{
+			"Parent PID": 2240,
+			"PID": 5680,
+			"Image": "C:\\Windows\\System32\\vm3dservice.exe",
+			"File Name": "vm3dservice.exe",
+			"Command Line": "vm3dservice.exe -n",
+			"Username": "NT AUTHORITY\\SYSTEM",
+			"StartTime": "2022-11-22 20:30:06"
+		},
+		{
+			"Parent PID": 636,
+			"PID": 6900,
+			"Image": "C:\\Windows\\System32\\svchost.exe",
+			"File Name": "svchost.exe",
+			"Command Line": "C:\\Windows\\system32\\svchost.exe -k wusvcs -p",
+			"Username": "NT AUTHORITY\\SYSTEM",
+			"StartTime": "2022-11-22 20:30:06"
+		},
+		{
+			"Parent PID": 636,
+			"PID": 5864,
+			"Image": "C:\\Windows\\System32\\svchost.exe",
+			"File Name": "svchost.exe",
+			"Command Line": "C:\\Windows\\system32\\svchost.exe -k wusvcs -p",
+			"Username": "NT AUTHORITY\\SYSTEM",
+			"StartTime": "2022-11-22 20:30:06",
+			"EndTime": "2022-11-22 20:30:07"
+		},
+		{
+			"Parent PID": 636,
+			"PID": 5792,
+			"Image": "C:\\Windows\\System32\\svchost.exe",
+			"File Name": "svchost.exe",
+			"Command Line": "C:\\Windows\\system32\\svchost.exe -k wusvcs -p",
+			"Username": "NT AUTHORITY\\SYSTEM",
+			"StartTime": "2022-11-22 20:30:06",
+			"EndTime": "2022-11-22 20:30:07"
+		},
+		{
+			"Parent PID": 636,
+			"PID": 4892,
+			"Image": "C:\\Windows\\System32\\svchost.exe",
+			"File Name": "svchost.exe",
+			"Command Line": "C:\\Windows\\system32\\svchost.exe -k wusvcs -p",
+			"Username": "NT AUTHORITY\\SYSTEM",
+			"StartTime": "2022-11-22 20:30:06",
+			"EndTime": "2022-11-22 20:30:07"
+		},
+		{
+			"Parent PID": 760,
+			"PID": 6052,
+			"Image": "C:\\Windows\\System32\\dllhost.exe",
+			"File Name": "dllhost.exe",
+			"Command Line": "C:\\Windows\\system32\\DllHost.exe /Processid:{338B40F9-9D68-4B53-A793-6B9AA0C5F63B},",
+			"Username": "DESKTOP-6QPQIFS\\Dave",
+			"StartTime": "2022-11-22 20:30:13",
+			"EndTime": "2022-11-22 20:30:18"
+		}
+		]
+},
