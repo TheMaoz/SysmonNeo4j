@@ -86,12 +86,16 @@ _3 + 1 Steps to run SysmoNeo4j Tool_
        
 ### **3) Install requirements.txt**
    - SysmonNeo4j Uses: xmltodict, neo4j, requests, beautifulsoup4
+   - ``` virtualenv venv ```
+   - ``` .\venv\Scripts\activate```
    - ``` pip install -r requirements.txt ```    
 
 
 # **Run SysmoNeo4j**
-### **5) Open NEO4J Desktop and create Project and DBMS**
+### **4) Open NEO4J Desktop and create Project and DBMS**
     - Password for DBMS should be 1234 (:TODO: Add cli object to change password).
+### **5) Install Apoc plugin**
+    - Under the plugin tab of the DBMS.
 ### **6) Create apoc.conf file**
     This is necessary for neo4j to work with json file.
     On the DBMS click on the three dots then select Open folder --> DBMS.
