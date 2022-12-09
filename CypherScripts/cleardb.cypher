@@ -1,0 +1,1 @@
+MATCH (n) optional MATCH (n)-[r]-() DELETE n,r
