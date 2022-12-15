@@ -146,11 +146,11 @@ def run_upload_query(plist):
     # :todo: Check connection to db before running any queries using db_connection.verify_connectivity and write to log file.
 
     session = db_connection.session()
-    cleardb_script = open("CypherScripts/cleardb.cypher").read()
+    cleardb_script = open("CypherScripts/ClearDB.cypher").read()
     session.run(cleardb_script, list=list_to_string(plist))
-    upload_script = open("CypherScripts/upload_process.cypher").read()
+    upload_script = open("CypherScripts/UploadProcess.cypher").read()
     session.run(upload_script, list=list_to_string(plist))
-    connect_script = open("CypherScripts/connect_parent_child.cypher").read()
+    connect_script = open("CypherScripts/ConnectProcessParent.cypher").read()
     session.run(connect_script)
     # :TODO: add try catch for session.run errors + combine 2 runs into one.
 
