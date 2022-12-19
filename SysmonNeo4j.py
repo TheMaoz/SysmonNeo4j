@@ -33,7 +33,6 @@ def get_json_from_sample(sample):
     return event_list
 
 
-
 def filter_events_by_time(events, start_time, end_time):
     """
     :desc: This function sorts list by time, then filters said list by time range specified by user.
@@ -98,15 +97,18 @@ def parse_process(events):
 
 
 # Define the functions that will be running
-def run(url_db, username, password, directory, file):
-    app = App(url_db, username, password)
+def run(url_db, username, password, directory, file, start_time, end_time):
     set_import_path(directory)
+    app = App(url_db, username, password)
     clear_directory()
-    #app.replace_unwanted_string_cwe()
-    copy_files_cypher_script()
     app.clear()
-    app.schema_script() 
-    #app.cwe_insertion()
+    app.close()
+    events_list = filter_events_by_time(get_json_from_sample("firstsample.evtx"), start_time, end_time)
+    process_list = parse_process(events_list)
+    write_json(process_list, "processes")
+    app = App(url_db, username, password)
+    copy_files_cypher_script()
+    app.upload_processes()
     app.close()
     return
 
@@ -114,12 +116,12 @@ def run(url_db, username, password, directory, file):
 def main():
     parser = argparse.ArgumentParser(description='Description of your program')
 
-    parser.add_argument("-s", "--startdate", required=True,
+    parser.add_argument("-s", "--starttime", required=True,
                         help="The Start Time - format YYYY-mm-dd-:HH:MM:SS",
                         type=valid_time
                         )
 
-    parser.add_argument("-e", "--enddate", required=True,
+    parser.add_argument("-e", "--endtime", required=True,
                         help="The End Time format YYYY-mm-dd-:HH:MM:SS",
                         type=valid_time
                         )
@@ -140,7 +142,7 @@ def main():
                             help='Neo4j DBMS password')
 
     args = parser.parse_args()
-    run(args.urldb, args.username, args.password, args.directory, args.file)
+    run(args.urldb, args.username, args.password, args.directory, args.file, args.starttime, args.endtime)
 
     #if args.neo4jbrowser == "y" or args.neo4jbrowser == "Y":
     #    neo4jbrowser_open = True

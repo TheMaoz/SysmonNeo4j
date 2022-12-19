@@ -18,93 +18,23 @@ class App:
     # Clear Database
     def clear(self):
         # Clear Database from existing nodes and relationships
-        query = """match (n) detach delete (n)"""
+        query = """MATCH (n) optional MATCH (n)-[r]-() DELETE n,r"""
         session = self.driver.session()
         session.run(query)
         print("\nPrevious Data have been deleted.")
-        self.clearSchema()
         print("\nDatabase is clear and ready for imports.")
 
-    # Clear Schema
-    def clearSchema(self):
-        # Clear Database from existing constraints and indexes
-        query = """CALL apoc.cypher.runSchemaFile("ClearConstraintsIndexes.cypher")"""
-        session = self.driver.session()
-        session.run(query)
-        print("\nPrevious Schema has been deleted.")
-
-    # Constraints and Indexes
-    def schema_script(self):
-        # Create Constraints and Indexes
-        query = """CALL apoc.cypher.runSchemaFile("ConstraintsIndexes.cypher")"""
-        session = self.driver.session()
-        session.run(query)
-        print("\nSchema with Constraints and Indexes insertion completed.")
-
+    # Processes - Event id 1 & 5.
     def upload_processes(self):
+        # Create Constraints and Indexes
+        #upload_query = """CALL apoc.cypher.runSchemaFile("UploadProcess.cypher")"""
+        #connect_query = """CALL apoc.cypher.runSchemaFile("ConnectProcessParent.cypher")"""
+        upload_query = open(f"{import_path}/UploadProcess.cypher").read()
+        connect_query = open(f"{import_path}/ConnectProcessParent.cypher").read()
         session = self.driver.session()
-        upload_script = open("CypherScripts/UploadProcess.cypher").read()
-        # Get path of file with import folder
-        session.run(upload_script)
-        connect_script = open("CypherScripts/ConnectProcessParent.cypher").read()
-        session.run(connect_script)
-
-#    def proccess_insertion(self,process_list):
-
-
-
-# Copy Cypher Script files to Import Path
-# Define Dataset Files in them
-def replace_files_cypher_script(files):
-    stringToInsert = "\""
-    for file in files:
-        stringToInsert += file + "\", \""
-    stringToInsert = stringToInsert[:-3]
-
-    current_path = os.getcwd()
-    current_os = platform.system()
-    if current_os == "Linux":
-        current_path += "/CypherScripts/"
-    elif current_os == "Windows":
-        current_path += "\CypherScripts\\"
-
-    if stringToInsert.startswith("\"nvdcpe"):
-        toUpdate = current_path + "CPEs.cypher"
-        fin = open(toUpdate, "rt")
-        updatedFile = import_path + "CPEs.cypher"
-        fout = open(updatedFile, "wt")
-        for line in fin:
-            fout.write(line.replace('filesToImport', stringToInsert))
-        fin.close()
-        fout.close()
-    elif stringToInsert.startswith("\"nvdcve"):
-        toUpdate = current_path + "CVEs.cypher"
-        fin = open(toUpdate, "rt")
-        updatedFile = import_path + "CVEs.cypher"
-        fout = open(updatedFile, "wt")
-        for line in fin:
-            fout.write(line.replace('filesToImport', stringToInsert))
-        fin.close()
-        fout.close()
-    elif stringToInsert.startswith("\"cwe"):
-        toUpdate = current_path + "CWEs.cypher"
-        fin = open(toUpdate, "rt")
-        updatedFile = import_path + "CWEs.cypher"
-        fout = open(updatedFile, "wt")
-        for line in fin:
-            fout.write(line.replace('filesToImport', stringToInsert))
-        fin.close()
-        fout.close()
-    elif stringToInsert.startswith("\"capec"):
-        toUpdate = current_path + "CAPECs.cypher"
-        fin = open(toUpdate, "rt")
-        updatedFile = import_path + "CAPECs.cypher"
-        fout = open(updatedFile, "wt")
-        for line in fin:
-            fout.write(line.replace('filesToImport', stringToInsert))
-        fin.close()
-        fout.close()
-
+        session.run(upload_query)
+        session.run(connect_query)
+        print("\nProcess insertion completed.")
 
 # Copy Cypher Script Schema Files to Import Path
 def copy_files_cypher_script():
@@ -115,17 +45,17 @@ def copy_files_cypher_script():
     elif current_os == "Windows":
         current_path += "\CypherScripts\\"
 
-    shutil.copy2(current_path + "ConstraintsIndexes.cypher", import_path)
-    shutil.copy2(current_path + "ClearConstraintsIndexes.cypher", import_path)
+    shutil.copy2(current_path + "ConnectProcessParent.cypher", import_path)
+    shutil.copy2(current_path + "UploadProcess.cypher", import_path)
 
-def write_json(data, filename):
+def write_json(data, event_type):
     """
     :param data: json list of events (processes/registry/files/etc)
-    :param filename: (to defer which .json is created) processes,files...
+    :param event_type: (to defer which .json is created) processes,files...
     write data to .json in project folder.
     :TODO: Create method to copy * to neo4j import folder.
     """
-    with open(filename+".json", "w") as write:
+    with open(import_path + event_type + ".json", "w") as write:
         json.dump(data, write)
 
 
