@@ -1,5 +1,4 @@
 import argparse
-import webbrowser
 from datetime import datetime
 from app import *
 from eventsparser import *
@@ -28,7 +27,6 @@ def run(url_db, username, password, directory, file_path, start_time, end_time):
     copy_files_cypher_script()
     app.upload_processes()
     app.close()
-    return
 
 
 def main():
@@ -58,20 +56,9 @@ def main():
 
     parser.add_argument('-p', '--password', required=True,
                             help='Neo4j DBMS password')
-
     args = parser.parse_args()
-    run(args.urldb, args.username, args.password, args.directory, args.file, args.starttime, args.endtime)
-
-    #if args.neo4jbrowser == "y" or args.neo4jbrowser == "Y":
-    #    neo4jbrowser_open = True
-    #else:
-    #    neo4jbrowser_open = False
-    #if args.graphlytic == "y" or args.neo4jbrowser == "Y":
-    #    graphlytic_open = True
-    #else:
-    #    graphlytic_open = False
-    # run(args.urldb, args.username, args.password,
-    # args.directory, neo4jbrowser_open, graphlytic_open)
+    run(args.urldb, args.username, args.password, 
+    args.directory, args.file, args.starttime, args.endtime)
     return
 
 
