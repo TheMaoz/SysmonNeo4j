@@ -1,5 +1,7 @@
 import os
 import platform
+import shutil
+import json
 from neo4j import GraphDatabase
 
 
@@ -20,7 +22,6 @@ class App:
         session = self.driver.session()
         session.run(query)
         print("\nPrevious Data have been deleted.")
-
         self.clearSchema()
         print("\nDatabase is clear and ready for imports.")
 
@@ -39,6 +40,18 @@ class App:
         session = self.driver.session()
         session.run(query)
         print("\nSchema with Constraints and Indexes insertion completed.")
+
+    def upload_processes(self):
+        session = self.driver.session()
+        upload_script = open("CypherScripts/UploadProcess.cypher").read()
+        # Get path of file with import folder
+        session.run(upload_script)
+        connect_script = open("CypherScripts/ConnectProcessParent.cypher").read()
+        session.run(connect_script)
+
+#    def proccess_insertion(self,process_list):
+
+
 
 # Copy Cypher Script files to Import Path
 # Define Dataset Files in them
@@ -104,6 +117,16 @@ def copy_files_cypher_script():
 
     shutil.copy2(current_path + "ConstraintsIndexes.cypher", import_path)
     shutil.copy2(current_path + "ClearConstraintsIndexes.cypher", import_path)
+
+def write_json(data, filename):
+    """
+    :param data: json list of events (processes/registry/files/etc)
+    :param filename: (to defer which .json is created) processes,files...
+    write data to .json in project folder.
+    :TODO: Create method to copy * to neo4j import folder.
+    """
+    with open(filename+".json", "w") as write:
+        json.dump(data, write)
 
 
 # Clear Import Directory
