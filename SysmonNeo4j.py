@@ -6,11 +6,12 @@ from evtx import PyEvtxParser
 from app import *
 
 
-def valid_time(s):
+def valid_time(str_input):
+    """validates that the user input time"""
     try:
-        return datetime.strptime(s, "%Y-%m-%d-%H:%M:%S")
+        return datetime.strptime(str_input, "%Y-%m-%d-%H:%M:%S")
     except ValueError:
-        msg = "not a valid time: {0!r}".format(s)
+        msg = "not a valid time: {0!r}".format(str_input)
         raise argparse.ArgumentTypeError(msg)
 
 
@@ -25,9 +26,9 @@ def get_json_from_sample(sample):
         parser = PyEvtxParser(sample)
         for record in parser.records_json():
             event_list.append(json.loads(record['data']))
-    except Exception as e:
+    except Exception as error:
         # TODO: Create a logger
-        print(e)
+        print(error)
         return None
     return event_list
 
@@ -101,15 +102,11 @@ def run(url_db, username, password, directory, file):
     app = App(url_db, username, password)
     set_import_path(directory)
     clear_directory()
-    app.replace_unwanted_string_cwe()
-    app.replace_unwanted_string_capec()
+    #app.replace_unwanted_string_cwe()
     copy_files_cypher_script()
     app.clear()
-    app.schema_script()
-    app.cve_insertion()
-    app.cwe_insertion()
-    app.capec_insertion()
-    app.cpe_insertion()
+    app.schema_script() 
+    #app.cwe_insertion()
     app.close()
     return
 
