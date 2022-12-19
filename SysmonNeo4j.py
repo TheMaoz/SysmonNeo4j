@@ -68,7 +68,7 @@ def parse_process(events):
                 # create new process
                 pid_list.append(pid)
                 event_time = event['Event']["EventData"]["UtcTime"]
-                event_time = event_time = event_time[:event_time.find("."):]
+                event_time = event_time[:event_time.find("."):]
                 image = event['Event']['EventData']['Image']
                 filename = event['Event']['EventData']['OriginalFileName']
                 cmd = event['Event']['EventData']['CommandLine']
@@ -97,13 +97,13 @@ def parse_process(events):
 
 
 # Define the functions that will be running
-def run(url_db, username, password, directory, file, start_time, end_time):
+def run(url_db, username, password, directory, file_path, start_time, end_time):
     set_import_path(directory)
     app = App(url_db, username, password)
     clear_directory()
     app.clear()
     app.close()
-    events_list = filter_events_by_time(get_json_from_sample("firstsample.evtx"), start_time, end_time)
+    events_list = filter_events_by_time(get_json_from_sample(file_path), start_time, end_time)
     process_list = parse_process(events_list)
     write_json(process_list, "processes")
     app = App(url_db, username, password)
