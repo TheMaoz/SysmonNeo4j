@@ -57,7 +57,6 @@ def parse_process(events):
     {"processName":"example.exe","Pid":"2123","PPid":"13","StartTime":"","EndTime":""}
     """
     pid_list = []
-    process = {}
     processes = []
 
     for event in events:
