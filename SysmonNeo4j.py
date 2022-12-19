@@ -1,7 +1,8 @@
 import argparse
 import webbrowser
+from datetime import datetime
 from app import *
-from event_parser import *
+from eventsparser import *
 
 def valid_datetime(str_input):
     """validates that the user input datetime"""
