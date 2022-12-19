@@ -44,19 +44,19 @@ def divide_events(events):
     """
     Takes a list of events and returns lists of events group by object types.
     """
-    event_ids = {
-        "process" : (1,5),
-        "file" : (11,23)
-    }
     process_events = []
     file_events = []
     
     # Append events to relavent list.
     for event in events:
         event_id = event['Event']['System']['EventID']
-        if event_id in event_ids['process']:
+        
+        # Process events.
+        if event_id in (1,5):
             process_events.append(event)
-        elif event_id in event_ids['file']:
+        
+        # File events.
+        elif event_id in (11,23):
             file_events.append(event)
     
     return process_events,file_events
