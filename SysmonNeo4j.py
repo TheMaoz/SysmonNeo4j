@@ -22,7 +22,7 @@ def run(url_db, username, password, directory, file_path, start_time, end_time):
     app.close()
     events_list = filter_events_by_time(get_json_from_sample(file_path), start_time, end_time)
     process_events, file_events = divide_events(events_list)
-    parse_process(process_events)
+    process_insertion(process_events)
     app = App(url_db, username, password)
     copy_files_cypher_script()
     app.upload_processes()
