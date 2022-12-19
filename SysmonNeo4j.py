@@ -20,7 +20,6 @@ def get_json_from_sample(sample):
     sample: evtx file sample
     event_list → list of sysmon events
     """
-
     event_list = []
     try:
         parser = PyEvtxParser(sample)
@@ -31,6 +30,7 @@ def get_json_from_sample(sample):
         print(e)
         return None
     return event_list
+
 
 
 def filter_events_by_time(events, start_time, end_time):
@@ -97,73 +97,21 @@ def parse_process(events):
 
 
 # Define the functions that will be running
-def run(url_db, username, password, directory, neo4jbrowser, graphlytic):
+def run(url_db, username, password, directory, file):
+    app = App(url_db, username, password)
     set_import_path(directory)
-
     clear_directory()
-    # scraper.download_datasets(import_path)
-    xml_to_json()
-    replace_unwanted_string_cwe()
-    replace_unwanted_string_capec()
+    app.replace_unwanted_string_cwe()
+    app.replace_unwanted_string_capec()
     copy_files_cypher_script()
-
-    app = App(url_db, username, password)
     app.clear()
-    app.close()
-
-    app = App(url_db, username, password)
     app.schema_script()
     app.cve_insertion()
     app.cwe_insertion()
     app.capec_insertion()
     app.cpe_insertion()
     app.close()
-
-    if neo4jbrowser:
-        webbrowser.open("http://localhost:7474")
-    if graphlytic:
-        webbrowser.open("http://localhost:8110/")
     return
-
-
-
-
-def list_to_string(plist):
-    """
-    :param plist: list of events.
-    :return: string of list ready to go into db
-    """
-    st = '['
-    for item in plist:
-        st += json.dumps(item) + ','
-    st = st[:len(st) - 1] + "]"
-    return st
-
-
-
-def run_upload_query(plist):
-    db_connection = GraphDatabase.driver(uri="bolt://localhost:7687", auth=("neo4j", "password"))
-    # :todo: Check connection to db before running any queries using db_connection.verify_connectivity and write to log file.
-
-    session = db_connection.session()
-    cleardb_script = open("CypherScripts/ClearDB.cypher").read()
-    session.run(cleardb_script, list=list_to_string(plist))
-    upload_script = open("CypherScripts/UploadProcess.cypher").read()
-    session.run(upload_script, list=list_to_string(plist))
-    connect_script = open("CypherScripts/ConnectProcessParent.cypher").read()
-    session.run(connect_script)
-    # :TODO: add try catch for session.run errors + combine 2 runs into one.
-
-
-def events_to_db(filename,start,end):
-    """
-    :desc: FULL PROCEDURE: from evtx to db.
-    :TODO: add different types of objects (Processes, Files, RegistryKeys, etc.)
-    """
-    events = get_json_from_sample(filename)
-    events = filter_events_by_time(events, start, end)
-    processes = parse_process(events)
-    run_upload_query(processes)
 
 
 def main():
@@ -179,29 +127,41 @@ def main():
                         type=valid_time
                         )
 
+    parser.add_argument('-l', '--urldb', required=True,
+                        help='neo4j url (usually \"bolt://localhost:7687\")')
+
     parser.add_argument('-f', '--file', required=True,
-                        help='Path to json input file')
+                        help='Path to Sysmon .evtx file')
+
+    parser.add_argument('-d', '--directory', required=True,
+                            help='Path to neo4j DBMS/import directory')
+
+    parser.add_argument('-u', '--username', required=True,
+                            help='Neo4j DBMS username')
+
+    parser.add_argument('-p', '--password', required=True,
+                            help='Neo4j DBMS password')
 
     args = parser.parse_args()
-    """
-    if args.neo4jbrowser == "y" or args.neo4jbrowser == "Y":
-        neo4jbrowser_open = True
-    else:
-        neo4jbrowser_open = False
-    if args.graphlytic == "y" or args.neo4jbrowser == "Y":
-        graphlytic_open = True
-    else:
-        graphlytic_open = False
+    run(args.urldb, args.username, args.password, args.directory, args.file)
+
+    #if args.neo4jbrowser == "y" or args.neo4jbrowser == "Y":
+    #    neo4jbrowser_open = True
+    #else:
+    #    neo4jbrowser_open = False
+    #if args.graphlytic == "y" or args.neo4jbrowser == "Y":
+    #    graphlytic_open = True
+    #else:
+    #    graphlytic_open = False
     # run(args.urldb, args.username, args.password,
     # args.directory, neo4jbrowser_open, graphlytic_open)
-    """
-    events_to_db(filename=args.file,start=args.startdate,end=args.enddate)
     return
-
 
 
 if __name__ == "__main__":
     main()
 
 # Command to run:
-# .\SysmonNeo4j.py -s 2022-11-22-20:30:05 -e 2022-11-22-20:30:35 -f .\firstsample.evtx
+# .\SysmonNeo4j.py -s 2022-11-22-20:30:05 -e 2022-11-22-20:30:35 -f .\firstsample.evtx -p password -u neo4j
+# -d "C:\Users\oy703\.Neo4jDesktop\relate-data\dbmss\dbms-df1d6b39-455e-44ef-b1bb-9539850cc4f6\import"
+# -l "bolt://localhost:7687"
