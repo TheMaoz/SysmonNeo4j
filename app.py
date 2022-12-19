@@ -52,18 +52,15 @@ def write_json(data, event_type):
     """
     :param data: json list of events (processes/registry/files/etc)
     :param event_type: (to defer which .json is created) processes,files...
-    write data to .json in project folder.
-    :TODO: Create method to copy * to neo4j import folder.
+    write data to .json in import folder.
     """
     with open(import_path + event_type + ".json", "w") as write:
         json.dump(data, write)
-
 
 # Clear Import Directory
 def clear_directory():
     for f in os.listdir(import_path):
         os.remove(os.path.join(import_path, f))
-
 
 # Set Import Directory
 def set_import_path(directory):
