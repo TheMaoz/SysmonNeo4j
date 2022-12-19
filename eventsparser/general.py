@@ -44,17 +44,14 @@ def divide_events(events):
     """
     process_events = []
     file_events = []
-    
     # Append events to relavent list.
     for event in events:
         event_id = event['Event']['System']['EventID']
-        
         # Process events.
         if event_id in (1,5):
             process_events.append(event)
-        
         # File events.
         elif event_id in (11,23):
             file_events.append(event)
-    
     return process_events,file_events
+    
