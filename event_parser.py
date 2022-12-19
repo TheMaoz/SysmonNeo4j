@@ -72,36 +72,41 @@ def parse_process(process_events):
 
     for event in process_events:
         eventId = event['Event']['System']['EventID']
-        if eventId == 1 or eventId == 5:
-            pid = event['Event']['EventData']['ProcessId']
-            if pid not in pid_list and eventId == 1:
-                # create new process
-                pid_list.append(pid)
-                event_time = event['Event']["EventData"]["UtcTime"]
-                event_time = event_time[:event_time.find("."):]
-                image = event['Event']['EventData']['Image']
-                filename = event['Event']['EventData']['OriginalFileName']
-                cmd = event['Event']['EventData']['CommandLine']
-                ppid = event['Event']['EventData']['ParentProcessId']
-                user = event['Event']['EventData']['User']
-            elif pid not in pid_list and eventId == 5:
-                continue
+        event_data = event['Event']['EventData']
+        pid = event_data['ProcessId']
+        
+        # Process creation.
+        if eventId == 1 and pid not in pid_list:
+            pid_list.append(pid)
+            event_time = event_data["UtcTime"]
+            event_time = event_time[:event_time.find("."):]
+            image = event_data['Image']
+            filename = event_data['OriginalFileName']
+            cmd = event_data['CommandLine']
+            ppid = event_data['ParentProcessId']
+            user = event_data['User']
             process = {
-                "PPID": ppid,
-                "PID": pid,
-                "Image": image,
-                "FileName": filename,
-                "CommandLine": cmd,
-                "Username": user,
-                "StartTime": event_time
-                # starttime stays last to stay close to endtime
+            "PPID": ppid,
+            "PID": pid,
+            "Image": image,
+            "FileName": filename,
+            "CommandLine": cmd,
+            "Username": user,
+            "StartTime": event_time
             }
             processes.append(process)
-            if pid in pid_list and eventId == 5:
-                end_time = event['Event']["EventData"]["UtcTime"]
-                end_time = end_time[:end_time.find("."):]
-                for p in processes:
-                    if p['PID'] == pid and eventId == 5:
-                        p.update({"EndTime": end_time})
+        
+        # End case - to chcek.
+        elif eventId == 5 and pid not in pid_list:
+            continue
+        
+        # Process terminate.
+        elif eventId == 5 and pid in pid_list:
+            end_time = event_data["UtcTime"]
+            end_time = end_time[:end_time.find("."):]
+            for p in processes:
+                if p['PID'] == pid and eventId == 5:
+                    p.update({"EndTime": end_time})
+
     write_json(processes, "processes")
 
