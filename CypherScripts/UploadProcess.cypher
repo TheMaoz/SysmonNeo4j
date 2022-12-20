@@ -1,7 +1,4 @@
-//CALL apoc.convert.fromJsonList($list) YIELD value AS process
-//WITH apoc.convert.fromJsonList($list) AS processes
-//UNWIND processes as process
-CALL apoc.load.json("file://processes.json") YIELD value AS process
+CALL apoc.load.json("/users/oy703/projects/sysmonneo4j/processes.json") YIELD value AS process
 MERGE (p:Process {pid: process.PID})
 SET p.ppid = process.PPID
 SET p.pid = process.PID
@@ -11,3 +8,4 @@ SET p.cmdline = process.CommandLine
 SET p.username = process.Username
 SET p.StartTime = process.StartTime
 SET p.EndTime = process.EndTime
+
