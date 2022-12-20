@@ -66,6 +66,4 @@ if __name__ == "__main__":
     main()
 
 # Command to run:
-# .\SysmonNeo4j.py -s 2022-11-22-20:30:05 -e 2022-11-22-20:30:35 -f .\firstsample.evtx -p password -u neo4j
-# -d "C:\Users\oy703\.Neo4jDesktop\relate-data\dbmss\dbms-df1d6b39-455e-44ef-b1bb-9539850cc4f6\import"
-# -l "bolt://localhost:7687"
+# .\SysmonNeo4j.py -s 2022-11-22-20:30:05 -e 2022-11-22-20:30:35 -f .\firstsample.evtx -p password -u neo4j -d C:\Users\oy703\.Neo4jDesktop\relate-data\dbmss\dbms-ba06baf4-c7ef-4e7d-b8ac-076dc4d04e5b\import -l "bolt://localhost:7687"

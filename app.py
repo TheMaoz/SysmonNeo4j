@@ -29,8 +29,8 @@ class App:
         # Create Constraints and Indexes
         #upload_query = """CALL apoc.cypher.runSchemaFile("UploadProcess.cypher")"""
         #connect_query = """CALL apoc.cypher.runSchemaFile("ConnectProcessParent.cypher")"""
-        upload_query = open(f"{import_path}/UploadProcess.cypher").read()
-        connect_query = open(f"{import_path}/ConnectProcessParent.cypher").read()
+        upload_query = open(f"CypherScripts/UploadProcess.cypher").read()
+        connect_query = open(f"CypherScripts/ConnectProcessParent.cypher").read()
         session = self.driver.session()
         session.run(upload_query)
         session.run(connect_query)
@@ -54,7 +54,7 @@ def write_json(data, event_type):
     :param event_type: (to defer which .json is created) processes,files...
     write data to .json in import folder.
     """
-    with open(import_path + event_type + ".json", "w") as write:
+    with open(".\\"+event_type + ".json", "w") as write:
         json.dump(data, write)
 
 # Clear Import Directory
