@@ -1,4 +1,4 @@
-CALL apoc.load.json("/users/oy703/projects/sysmonneo4j/processes.json") YIELD value AS process
+CALL apoc.load.json($file) YIELD value AS process
 MERGE (p:Process {pid: process.PID})
 SET p.ppid = process.PPID
 SET p.pid = process.PID
