@@ -38,9 +38,14 @@ class App:
         processes_json_path ="processes.json"
         upload_query = open(f"CypherScripts/UploadProcess.cypher").read()
         session.run(upload_query, file=processes_json_path)
+        print("\nProcess insertion completed.")
+
+    def set_nodes_relationship(self):
+        """This function run Cyphers that set the relationship between the nodes"""
+        session = self.driver.session()
         connect_query = open(f"CypherScripts/ConnectProcessParent.cypher").read()
         session.run(connect_query)
-        print("\nProcess insertion completed.")
+        print("\n Nodes relationship has been set.")
 
 
 def write_json(data, event_type):

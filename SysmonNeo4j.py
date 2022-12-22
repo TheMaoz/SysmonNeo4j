@@ -25,6 +25,7 @@ def run(url_db, username, password, file_path, start_time, end_time):
     process_insertion(process_events)
     app = App(url_db, username, password)
     app.upload_processes()
+    app.set_nodes_relationship()
     app.close()
 
 
