@@ -1,9 +1,7 @@
 import os
-import platform
-import shutil
 import json
 from neo4j import GraphDatabase
-
+from pathlib import Path
 
 
 class App:
@@ -35,17 +33,19 @@ class App:
     # Processes - Event id 1 & 5.
     def upload_processes(self):
         session = self.driver.session()
-        processes_json_path ="processes.json"
-        upload_query = open(f"CypherScripts/UploadProcess.cypher").read()
+        processes_json_path = "processes.json"
+        upload_query_path = Path(Path.cwd(), "CypherScripts", "UploadProcess.cypher")
+        upload_query = open(upload_query_path).read()
         session.run(upload_query, file=processes_json_path)
         print("\nProcess insertion completed.")
 
     def set_nodes_relationship(self):
         """This function run Cyphers that set the relationship between the nodes"""
         session = self.driver.session()
-        connect_query = open(f"CypherScripts/ConnectProcessParent.cypher").read()
-        session.run(connect_query)
-        print("\n Nodes relationship has been set.")
+        ppid_relation_query_path = Path(Path.cwd(), "CypherScripts", "ConnectProcessParent.cypher")
+        ppid_relation_query = open(ppid_relation_query_path).read()
+        session.run(ppid_relation_query)
+        print("\nNodes relationship has been set.")
 
 
 def write_json(data, event_type):
@@ -55,7 +55,8 @@ def write_json(data, event_type):
     write data to .json in import folder.
     :TODO: clear event_type.json if exists
     """
-    with open(import_dir+"\\"+event_type + ".json", "w") as write:
+    path = (Path(import_dir,event_type)).with_suffix(".json")
+    with open(path, "w") as write:
         json.dump(data, write)
 
 
