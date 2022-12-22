@@ -16,6 +16,7 @@ def valid_datetime(str_input):
 # Define the functions that will be running
 def run(url_db, username, password, file_path, start_time, end_time):
     app = App(url_db, username, password)
+    app.set_import_dir()
     clear_directory()
     app.clear()
     app.close()
