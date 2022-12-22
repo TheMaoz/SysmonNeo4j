@@ -37,7 +37,7 @@ _3 + 1 Steps to run SysmoNeo4j Tool_
      Useful Video: https://tinyurl.com/vvpjf3dr
      
 ### **2) Create and Configure the Database**
-   - Create Database:
+   - Create Database: DBMS version must be 5.0+
      - Windows Users:
        
        You can create databases in whatever version you want (latest version preferable) through GUI or Neo4j Terminal.
@@ -63,13 +63,14 @@ _3 + 1 Steps to run SysmoNeo4j Tool_
            
            Restart Neo4j: ```systemctl restart neo4j```
      - Configure Database Settings File:
-       - Windows Users: In Neo4j Desktop Main Page --> Choose your Database --> ... (Three Dots) --> Settings --> Go to last line and set the commands below --> Apply and Restart the Database
-        
+       - Windows Users: On the DBMS click on the three dots then select Open folder --> DBMS.
+          navigate to "conf" folder.
+          Create a file "apoc.conf" and insert following lines to it:
          ```
          apoc.export.file.enabled=true
          apoc.import.file.enabled=true
          ```
-         
+         Restart DBMS and reload it.
        - Linux Users: Same as above, in the neo4j.conf file --> check every folder path in Neo4j: https://neo4j.com/docs/operations-manual/current/configuration/file-locations/
        
 ### **3) Install requirements.txt**
@@ -80,27 +81,11 @@ _3 + 1 Steps to run SysmoNeo4j Tool_
 
 
 # **Run SysmoNeo4j**
-### **4) Open NEO4J Desktop and create Project and DBMS**
-    - Neo4j version has to be 5.0 + 
-### **5) Install Apoc plugin**
-    - Under the plugin tab of the DBMS.
-### **6) Create apoc.conf file**
-    This is necessary for neo4j to work with json file.
-    On the DBMS click on the three dots then select Open folder --> DBMS.
-    navigate to "conf" folder.
-    Create a file "apoc.conf" and insert following lines to it:
-        apoc.import.file.enabled=true
-        apoc.export.file.enabled=true
-    Restart DBMS and reload it.
-
-
 ```
 // Default
-python main.py -u BOLT_URL -n USERNAME -p PASSWORD -d IMPORT_PATH
-// Run and Open Neo4j Browser
-python main.py -u BOLT_URL -n USERNAME -p PASSWORD -d IMPORT_PATH -b y
-// Run and Open Graphlytic App
-python main.py -u BOLT_URL -n USERNAME -p PASSWORD -d IMPORT_PATH -g y
+python SysmonNeo4j.py -s STARTTIME -e ENDTIME -u BOLT_URL -n USERNAME -p PASSWORD 
+// Example Command
+.\SysmonNeo4j.py -s 2022-11-22-20:30:05 -e 2022-11-22-20:30:35 -f .\firstsample.evtx -p password -u neo4j -l "bolt://localhost:7687"
 // Default Run Example in Ubuntu
-sudo python3 main.py -u BOLT_URL -n USERNAME -p PASSWORD -d /var/lib/neo4j/import/
+sudo python3 SysmonNeo4j.py -s STARTTIME -e ENDTIME -u BOLT_URL -n USERNAME -p PASSWORD 
 ``` 
