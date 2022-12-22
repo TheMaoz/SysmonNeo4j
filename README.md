@@ -62,10 +62,10 @@ _3 + 1 Steps to run SysmoNeo4j Tool_
            ```
            
            Restart Neo4j: ```systemctl restart neo4j```
-     - Configure Database Settings File:
+     - Configure Database Apoc Settings File:
        - Windows Users: On the DBMS click on the three dots then select Open folder --> DBMS.
-          navigate to "conf" folder.
-          Create a file "apoc.conf" and insert following lines to it:
+          - navigate to "conf" folder.
+          - Create a file "apoc.conf" and insert following lines to it:
          ```
          apoc.export.file.enabled=true
          apoc.import.file.enabled=true
