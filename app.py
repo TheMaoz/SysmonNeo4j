@@ -3,14 +3,20 @@ import platform
 import shutil
 import json
 from neo4j import GraphDatabase
-global events_folder
-events_folder = ".\\CypherScripts\\events\\"
+
+
 
 class App:
 
     # Initializing Neo4j Driver
     def __init__(self, url, username, password):
         self.driver = GraphDatabase.driver(url, auth=(username, password))
+
+    def set_import_dir(self):
+        global import_dir
+        session = self.driver.session()
+        result = session.run("Call dbms.listConfig() YIELD name, value WHERE name='server.directories.import' RETURN value")
+        import_dir = [record["value"] for record in result][0]
 
 
     # Don't forget to close the driver connection when you are finished with it
@@ -29,8 +35,7 @@ class App:
     # Processes - Event id 1 & 5.
     def upload_processes(self):
         session = self.driver.session()
-        #                                         remove .   remove 'c:'
-        processes_json_path = (os.getcwd()+events_folder[1::])[2::]+"\\processes.json"
+        processes_json_path ="processes.json"
         upload_query = open(f"CypherScripts/UploadProcess.cypher").read()
         session.run(upload_query, file=processes_json_path)
         connect_query = open(f"CypherScripts/ConnectProcessParent.cypher").read()
@@ -45,14 +50,11 @@ def write_json(data, event_type):
     write data to .json in import folder.
     :TODO: clear event_type.json if exists
     """
-    if not os.path.exists(events_folder):
-        os.mkdir(events_folder)
-    with open(os.getcwd()+events_folder+event_type + ".json", "w") as write:
+    with open(import_dir+"\\"+event_type + ".json", "w") as write:
         json.dump(data, write)
 
 
 # Clear events Directory
 def clear_directory():
-    if os.path.exists(events_folder):
-        for f in os.listdir(events_folder):
-            os.remove(os.path.join(events_folder, f))
+    for f in os.listdir(import_dir):
+        os.remove(os.path.join(import_dir, f))

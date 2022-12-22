@@ -68,8 +68,6 @@ _3 + 1 Steps to run SysmoNeo4j Tool_
          ```
          apoc.export.file.enabled=true
          apoc.import.file.enabled=true
-         apoc.import.file.user_neo4j_config=false
-         cypher.lenient_create_relationship = true
          ```
          
        - Linux Users: Same as above, in the neo4j.conf file --> check every folder path in Neo4j: https://neo4j.com/docs/operations-manual/current/configuration/file-locations/
@@ -83,7 +81,7 @@ _3 + 1 Steps to run SysmoNeo4j Tool_
 
 # **Run SysmoNeo4j**
 ### **4) Open NEO4J Desktop and create Project and DBMS**
-    - Password for DBMS should be 1234 (:TODO: Add cli object to change password).
+    - Neo4j version has to be 5.0 + 
 ### **5) Install Apoc plugin**
     - Under the plugin tab of the DBMS.
 ### **6) Create apoc.conf file**
@@ -92,7 +90,7 @@ _3 + 1 Steps to run SysmoNeo4j Tool_
     navigate to "conf" folder.
     Create a file "apoc.conf" and insert following lines to it:
         apoc.import.file.enabled=true
-        apoc.import.file.use_neo4j_config=true
+        apoc.export.file.enabled=true
     Restart DBMS and reload it.
 
 
