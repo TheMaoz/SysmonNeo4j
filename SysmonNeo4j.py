@@ -40,8 +40,9 @@ def main():
                         type=valid_datetime
                         )
 
-    parser.add_argument('-l', '--urldb', required=True,
-                        help='neo4j url (usually \"bolt://localhost:7687\")')
+    parser.add_argument('-l', '--urldb', required=False,
+                        default="bolt://localhost:7687",
+                        help='neo4j url - (usually \"bolt://localhost:7687\")')
 
     parser.add_argument('-f', '--file', required=True,
                         help='Path to Sysmon .evtx file')
