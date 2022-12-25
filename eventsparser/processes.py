@@ -16,10 +16,10 @@ def parse_process_event(event_data):
     return process_event
 
 
-def process_insertion(process_events):
+def process_events_insertion(process_events):
     """
-    :desc: takes a list of events and parses it to a list of processes by the following syntax:
-    {"processName":"example.exe","Pid":"2123","PPid":"13","StartTime":"","EndTime":""}
+    This function recives a list of process events, 
+    parse it and save the output to the DBMS import directory.
     """
     pid_list = []
     processes = []

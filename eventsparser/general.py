@@ -14,7 +14,6 @@ def get_json_from_sample(sample):
         for record in parser.records_json():
             event_list.append(json.loads(record['data']))
     except Exception as error:
-        # TODO: Create a logger
         print(error)
         return None
     return event_list
@@ -44,6 +43,8 @@ def divide_events(events):
     """
     process_events = []
     file_events = []
+    registry_events = []
+    network_events = []
     # Append events to relavent list.
     for event in events:
         event_id = event['Event']['System']['EventID']
@@ -53,5 +54,11 @@ def divide_events(events):
         # File events.
         elif event_id in (11,23):
             file_events.append(event)
-    return process_events,file_events
+        # Registry events.
+        elif event_id in (12,13,14):
+            registry_events.append(event)
+        # Network events.
+        elif event_id == 3:
+            network_events.append(event)
+    return process_events, file_events, registry_events, network_events
     

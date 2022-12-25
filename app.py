@@ -31,13 +31,32 @@ class App:
         print("\nDatabase is clear and ready for imports.")
 
     # Processes - Event id 1 & 5.
-    def upload_processes(self):
+    def upload_processes_events(self):
         session = self.driver.session()
         processes_json_path = "processes.json"
-        upload_query_path = Path(Path.cwd(), "CypherScripts", "UploadProcess.cypher")
+        upload_query_path = Path(Path.cwd(), "CypherScripts", "UploadProcessEvents.cypher")
         upload_query = open(upload_query_path).read()
         session.run(upload_query, file=processes_json_path)
-        print("\nProcess insertion completed.")
+        print("\nProcess events insertion completed.")
+    
+    # Files - Event id 11 & 23.
+    def upload_files_events(self):
+        session = self.driver.session()
+        files_json_path = "files.json"
+        upload_query_path = Path(Path.cwd(), "CypherScripts", "UploadFileEvents.cypher")
+        upload_query = open(upload_query_path).read()
+        session.run(upload_query, file=files_json_path)
+        print("\nFile events insertion completed.")
+
+    # Registry - Event id 12, 13, 14.
+    def upload_registry_events(self):
+        session = self.driver.session()
+        registry_json_path = "registry.json"
+        upload_query_path = Path(Path.cwd(), "CypherScripts", "UploadRegistryEvents.cypher")
+        upload_query = open(upload_query_path).read()
+        session.run(upload_query, file=registry_json_path)
+        print("\nRegistry events insertion completed.")
+
 
     def set_nodes_relationship(self):
         """This function run Cyphers that set the relationship between the nodes"""
