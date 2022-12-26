@@ -51,7 +51,7 @@ class App:
     # Registry - Event id 12, 13, 14.
     def upload_registry_events(self):
         session = self.driver.session()
-        registry_json_path = "registries.json"
+        registry_json_path = "registry.json"
         upload_query_path = Path(Path.cwd(), "CypherScripts", "UploadRegistryEvents.cypher")
         upload_query = open(upload_query_path).read()
         session.run(upload_query, file=registry_json_path)
@@ -61,15 +61,13 @@ class App:
     def set_nodes_relationship(self):
         """This function run Cyphers that set the relationship between the nodes"""
         session = self.driver.session()
-        queries = []
-        process_relation_query_path = Path(Path.cwd(), "CypherScripts", "ConnectProcessParent.cypher")
-        queries.append(open(process_relation_query_path).read())
-        file_relation_query_path = Path(Path.cwd(), "CypherScripts", "ConnectFileParent.cypher")
-        queries.append(open(file_relation_query_path).read())
-        registry_relation_query_path = Path(Path.cwd(), "CypherScripts", "ConnectRegistryParent.cypher")
-        queries.append(open(registry_relation_query_path).read())
-        for q in queries:
-            session.run(q)
+        relation_queries_path = Path(Path.cwd(), "CypherScripts", "RelationsCyphers")
+        query_paths = (relation_queries_path.iterdir())
+        
+        # Run each relation query.
+        for query_path in query_paths:
+            with open(query_path, "r") as file:
+                session.run(file.read())
         print("\nNodes relationship has been set.")
 
 
@@ -87,5 +85,5 @@ def write_json(data, event_type):
 
 # Clear events Directory
 def clear_directory():
-    for f in os.listdir(import_dir):
-        os.remove(os.path.join(import_dir, f))
+    for file in os.listdir(import_dir):
+        os.remove(os.path.join(import_dir, file))
