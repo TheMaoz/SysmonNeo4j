@@ -66,7 +66,7 @@ class App:
         
         # Run each relation query.
         for query_path in query_paths:
-            with open(query_path, "r") as file:
+            with open(query_path, encoding='utf-8') as file:
                 session.run(file.read())
         print("\nNodes relationship has been set.")
 
