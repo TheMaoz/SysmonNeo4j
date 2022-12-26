@@ -24,7 +24,7 @@ def valide_evtx_file(param):
 def run(url_db, username, password, file_path, start_time, end_time):
     app = App(url_db, username, password)
     app.set_import_dir()
-    clear_directory()
+    #clear_directory()
     app.clear()
     app.close()
     events_list = filter_events_by_time(get_json_from_sample(file_path), start_time, end_time)
@@ -77,4 +77,4 @@ if __name__ == "__main__":
     main()
 
 # Command to run:
-# .\SysmonNeo4j.py -s 2022-11-22-20:30:05 -e 2022-11-22-20:30:35 -f .\firstsample.evtx -p password -u neo4j -l "bolt://localhost:7687"
+# .\SysmonNeo4j.py -s 2022-11-22-20:30:05 -e 2022-11-22-20:30:35 -f .\evtx_samples\firstsample.evtx -p password -u neo4j

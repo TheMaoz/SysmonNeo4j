@@ -1,24 +1,11 @@
 from app import write_json
 
-def parse_process_event(event_data):
-    """Parse the process event data and returns a parsed dict"""
-    event_time = event_data["UtcTime"]
-    event_time = event_time[:event_time.find("."):]
-    process_event = {
-    "PPID": event_data['ParentProcessId'],
-    "PID": event_data['ProcessId'],
-    "Image": event_data['Image'],
-    "FileName": event_data['OriginalFileName'],
-    "CommandLine": event_data['CommandLine'],
-    "Username": event_data['User'],
-    "StartTime": event_time
-    }
-    return process_event
+
 
 
 def process_events_insertion(process_events):
     """
-    This function recives a list of process events, 
+    This function recives a list of process events,
     parse it and save the output to the DBMS import directory.
     """
     pid_list = []
@@ -27,20 +14,25 @@ def process_events_insertion(process_events):
     for event in process_events:
         event_id = event['Event']['System']['EventID']
         event_data = event['Event']['EventData']
-        pid = event_data['ProcessId']   
+        pid = event_data['ProcessId']
         # Process creation.
         if event_id == 1 and pid not in pid_list:
             pid_list.append(pid)
-            processes.append(parse_process_event(event_data))  
-        # End case - to chcek.
+            processes.append(event_data)
+        # Termination of a process which its creation was not logged, or not in time range.
         elif event_id == 5 and pid not in pid_list:
-            continue 
+            event_data.update({"Description": "Process was terminated."})
+            processes.append(event_data)
         # Process terminate.
         elif event_id == 5 and pid in pid_list:
             end_time = event_data["UtcTime"]
             end_time = end_time[:end_time.find("."):]
             for process in processes:
-                if process['PID'] == pid:
-                    process.update({"EndTime": end_time})
-
+                if process['ProcessId'] == pid:
+                    process.update({"EndUTCTime": end_time})
+                    process.update({"Description": "Process was created and terminated."})
+        # Only CreateProcess was logged.
+        for process in processes:
+            if not('EndTime' in process):
+                process.update({"Description": "Process was created."})
     write_json(processes, "processes")
