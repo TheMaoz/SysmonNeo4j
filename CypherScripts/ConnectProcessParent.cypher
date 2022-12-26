@@ -1,3 +1,2 @@
-MATCH (parent:Process),(child:Process) WHERE parent.pid = child.ppid
-CREATE (parent)-[r:HAS_CREATED]->(child)
-RETURN type(r)
+MATCH (parentProcess:Process),(childProcess:Process) WHERE parentProcess.ProcessId = childProcess.ParentProcessId
+CREATE (parentProcess)-[r_process:HAS_CREATED]->(childProcess)
