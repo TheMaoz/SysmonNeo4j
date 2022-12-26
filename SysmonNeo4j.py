@@ -1,6 +1,6 @@
 import argparse
 from datetime import datetime
-from app import App, write_json, clear_directory
+from app import App,clear_directory
 from eventsparser import *
 from pathlib import Path
 
@@ -43,12 +43,12 @@ def run(url_db, username, password, file_path, start_time, end_time):
 def main():
     parser = argparse.ArgumentParser(description='Description of your program')
 
-    parser.add_argument("-s", "--starttime", required=True,
+    parser.add_argument("-s", "--starttime", required=False, default='1970-01-01-00:00:00',
                         help="The Start Time - format YYYY-mm-dd-:HH:MM:SS",
                         type=valid_datetime
                         )
 
-    parser.add_argument("-e", "--endtime", required=True,
+    parser.add_argument("-e", "--endtime", required=False, default='2048-01-01-00:00:00',
                         help="The End Time format YYYY-mm-dd-:HH:MM:SS",
                         type=valid_datetime
                         )
@@ -75,6 +75,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-# Command to run:
-# .\SysmonNeo4j.py -s 2022-11-22-20:30:05 -e 2022-11-22-20:30:35 -f .\evtx_samples\firstsample.evtx -p password -u neo4j
