@@ -1,6 +1,6 @@
 import argparse
 from datetime import datetime
-from app import *
+from app import App, write_json, clear_directory
 from eventsparser import *
 from pathlib import Path
 

@@ -45,18 +45,23 @@ def divide_events(events):
     file_events = []
     registry_events = []
     network_events = []
+    
     # Append events to relevant list.
     for event in events:
         event_id = event['Event']['System']['EventID']
+        
         # Process events.
         if event_id in (1, 5):
             process_events.append(event)
+        
         # File events.
         elif event_id in (11, 23):
             file_events.append(event)
+        
         # Registry events.
         elif event_id in (12,13,14):
             registry_events.append(event)
+        
         # Network events.
         elif event_id == 3:
             network_events.append(event)
