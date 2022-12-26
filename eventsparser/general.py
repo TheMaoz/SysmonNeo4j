@@ -26,7 +26,6 @@ def filter_events_by_time(events, start_time, end_time):
     start_time & end_time: specified by user in CLI.
     logs → sorted and filtered list.
     """
-    
     logs = []
     events.sort(key=lambda x: x['Event']["System"]["TimeCreated"]["#attributes"]["SystemTime"])
     for event in events:
