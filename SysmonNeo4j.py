@@ -27,7 +27,12 @@ def run(url_db, username, password, file_path, start_time, end_time):
     #clear_directory()
     app.clear()
     app.close()
-    events_list = filter_events_by_time(get_json_from_sample(file_path), start_time, end_time)
+
+    # Time range args has not been set.
+    if start_time == "1970-01-01-00:00:00" and end_time == "2048-12-31-00:00:00":
+        events_list = get_json_from_sample(file_path)
+    else:
+        events_list = filter_events_by_time(get_json_from_sample(file_path), start_time, end_time)
     process_events, file_events, registry_events, network_events = divide_events(events_list)
     process_events_insertion(process_events)
     file_events_insertion(file_events)
@@ -48,7 +53,7 @@ def main():
                         type=valid_datetime
                         )
 
-    parser.add_argument("-e", "--endtime", required=False, default='2048-01-01-00:00:00',
+    parser.add_argument("-e", "--endtime", required=False, default='2048-12-31-00:00:00',
                         help="The End Time format YYYY-mm-dd-:HH:MM:SS",
                         type=valid_datetime
                         )
