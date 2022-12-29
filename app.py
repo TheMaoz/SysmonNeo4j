@@ -70,6 +70,22 @@ class App:
                 session.run(file.read())
         print("\nNodes relationship has been set.")
 
+def write_jsom(data, event_type):
+    """
+    :param data: json list of events (processes/registry/files/etc)
+    :param event_type: (to defer which .json is created) processes,files...
+    write data to .json in import folder.
+    :TODO: clear event_type.json if exists
+    """
+    path = (Path(import_dir,event_type)).with_suffix(".json")
+    datat = ""
+    with open(path, "w") as write:
+        datat += '['
+        for value in data.values():
+            datat += json.dumps(value)+','
+        datat = datat[:len(datat)-1:]
+        datat += ']'
+        write.write(datat)
 
 def write_json(data, event_type):
     """
@@ -81,6 +97,7 @@ def write_json(data, event_type):
     path = (Path(import_dir,event_type)).with_suffix(".json")
     with open(path, "w") as write:
         json.dump(data, write)
+
 
 
 # Clear events Directory
