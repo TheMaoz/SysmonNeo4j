@@ -65,11 +65,11 @@ def main():
                         help='Path to Sysmon .evtx file',
                         type=valide_evtx_file)
 
-    parser.add_argument('-u', '--username', required=True,
-                        help='Neo4j DBMS username')
+    parser.add_argument('-u', '--username', required=False,
+                        default="neo4j", help='Neo4j DBMS username')
 
-    parser.add_argument('-p', '--password', required=True,
-                        help='Neo4j DBMS password')
+    parser.add_argument('-p', '--password', required=False,
+                        default="password", help='Neo4j DBMS password')
     args = parser.parse_args()
 
     run(args.urldb, args.username, args.password,

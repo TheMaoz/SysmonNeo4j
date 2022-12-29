@@ -7,7 +7,8 @@ def process_events_insertion(process_events):
     """
     pid_list = []
     processes = []
-
+    
+    # Iterate through process events.
     for event in process_events:
         event_id = event['Event']['System']['EventID']
         event_data = event['Event']['EventData']
