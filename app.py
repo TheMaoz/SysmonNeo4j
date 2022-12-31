@@ -83,6 +83,7 @@ def write_json(data, event_type):
         json.dump(data, write)
 
 
+
 # Clear events Directory
 def clear_directory():
     for file in os.listdir(import_dir):

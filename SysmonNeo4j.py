@@ -26,7 +26,6 @@ def run(url_db, username, password, file_path, start_time, end_time):
     #clear_directory()
     app.clear()
     app.close()
-    
     # Time range args has not been set.
     if start_time is None or end_time is None:
         events_list = get_json_from_sample(file_path)
@@ -59,17 +58,19 @@ def main():
 
     parser.add_argument('-l', '--urldb', required=False,
                         default="bolt://localhost:7687",
-                        help='neo4j url - (usually \"bolt://localhost:7687\")')
+                        help='neo4j url - set to \"bolt://localhost:7687\" by default')
 
     parser.add_argument('-f', '--file', required=True,
                         help='Path to Sysmon .evtx file',
                         type=valide_evtx_file)
 
     parser.add_argument('-u', '--username', required=False,
-                        default="neo4j", help='Neo4j DBMS username')
+                        default="neo4j", help='Neo4j DBMS username,'
+                                              ' set to \'neo4j\' by default')
 
     parser.add_argument('-p', '--password', required=False,
-                        default="password", help='Neo4j DBMS password')
+                        default="password", help='Neo4j DBMS password'
+                                                 ' set to \'password\' by default')
     args = parser.parse_args()
 
     run(args.urldb, args.username, args.password,

@@ -1,2 +1,2 @@
-MATCH (process_registry:Process),(childRegistry:RegistryKey) WHERE process_registry.ProcessId = childRegistry.ProcessId
-CREATE (process_registry)-[r_registry:ACCESSED_REGISTRY]->(process_registry)
+MATCH (process:Process),(Registry:RegistryKey) WHERE process.ProcessId = Registry.ProcessId
+CREATE (process)-[r_registry:ACCESSED_REGISTRY]->(Registry)
