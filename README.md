@@ -1,6 +1,5 @@
 # SysmoNeo4j
 Open Source Tool - Sysmon Neo4j Visulaizer.
-Usefull for 
 
 # **Prerequisites**
 Follow steps 1 - 4  to run SysmoNeo4j Tool
