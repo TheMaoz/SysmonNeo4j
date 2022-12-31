@@ -2,7 +2,7 @@
 Open Source Tool - Sysmon Neo4j Visulaizer.
 
 # **Prerequisites**
-Follow steps 1 - 4  to run SysmoNeo4j Tool
+Follow steps 1 - 4  to run SysmoNeo4j.py
 
 ### **1) Download and Install Neo4j Desktop**
    - Windows Users: https://neo4j.com/download/
