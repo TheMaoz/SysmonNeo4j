@@ -1,8 +1,10 @@
 # SysmoNeo4j
-Open Source Tool - Sysmon Neo4j Visulaizer.
+Open Source Tool - Sysmon Neo4j Visualizer.
+Zoom in:
+![art](./images/zoomin.png)
 
 # **Prerequisites**
-Follow steps 1 - 4  to run SysmoNeo4j.py
+Follow steps 1 - 4  to run SysmonNeo4j.py
 
 ### **1) Download and Install Neo4j Desktop**
    - Windows Users: https://neo4j.com/download/
@@ -35,9 +37,11 @@ Follow steps 1 - 4  to run SysmoNeo4j.py
        
 ### **3) Install requirements.txt**
    - SysmonNeo4j Uses: evtx, neo4j
-   - ``` virtualenv venv ```
-   - ``` .\venv\Scripts\activate```
-   - ``` pip install -r requirements.txt ```    
+    ``` 
+    virtualenv venv 
+    .\venv\Scripts\activate
+    pip install -r requirements.txt 
+    ```    
 
 # **Run SysmoNeo4j**
 ```
@@ -52,6 +56,3 @@ sudo python3 SysmonNeo4j.py -f SYSMONSAMPLE -s STARTTIME -e ENDTIME -u BOLT_URL 
 ``` 
 SysmonNeo4j.py:
 ![art](./images/SysmonNeo4j.png)
-
-Zoom in:
-![art](./images/zoomin.png)

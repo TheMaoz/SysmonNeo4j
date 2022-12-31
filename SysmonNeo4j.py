@@ -1,19 +1,19 @@
 import argparse
+from pathlib import Path
 from datetime import datetime
 from app import App,clear_directory
 from eventsparser import *
-from pathlib import Path
 
 def valid_datetime(str_input):
-    """Validates that the user input is datetime"""
+    """Validates that the user input is a datetime string"""
     try:
         return datetime.strptime(str_input, "%Y-%m-%d-%H:%M:%S")
     except ValueError:
         msg = f"not a valid time: {str_input}"
         raise argparse.ArgumentTypeError(msg)
 
-def valide_evtx_file(param):
-    """Validates the files is an evtx (Windows event log) file"""
+def valid_evtx_file(param):
+    """Validates the file is an evtx (Windows event log) file"""
     if Path(param).suffix != '.evtx':
         raise argparse.ArgumentTypeError('File must have an evtx extension')
     return param
@@ -62,7 +62,7 @@ def main():
 
     parser.add_argument('-f', '--file', required=True,
                         help='Path to Sysmon .evtx file',
-                        type=valide_evtx_file)
+                        type=valid_evtx_file)
 
     parser.add_argument('-u', '--username', required=False,
                         default="neo4j", help='Neo4j DBMS username,'

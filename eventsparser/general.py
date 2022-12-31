@@ -1,6 +1,6 @@
-from evtx import PyEvtxParser
-from datetime import datetime
 import json
+from datetime import datetime
+from evtx import PyEvtxParser
 
 def get_json_from_sample(sample):
     """
