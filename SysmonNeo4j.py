@@ -9,7 +9,7 @@ def valid_datetime(str_input):
     try:
         return datetime.strptime(str_input, "%Y-%m-%d-%H:%M:%S")
     except ValueError:
-        msg = "not a valid time: {0!r}".format(str_input)
+        msg = f"not a valid time: {str_input}"
         raise argparse.ArgumentTypeError(msg)
 
 def valide_evtx_file(param):
@@ -19,13 +19,13 @@ def valide_evtx_file(param):
     return param
 
 
-# Define the functions that will be running
 def run(url_db, username, password, file_path, start_time, end_time):
     app = App(url_db, username, password)
     app.set_import_dir()
-    #clear_directory()
+    clear_directory()
     app.clear()
     app.close()
+    
     # Time range args has not been set.
     if start_time is None or end_time is None:
         events_list = get_json_from_sample(file_path)

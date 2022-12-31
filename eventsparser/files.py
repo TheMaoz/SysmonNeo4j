@@ -18,7 +18,7 @@ def file_events_insertion(file_events):
         # File creation.
         if event_id == 11:
             target_files_list.append(target_file)
-            event_data["Description"] = "Process was created."
+            event_data["Description"] = "File was created."
             files[target_file] = event_data
         
         # File deletion of a file which its creation was not logged, or not in time range.

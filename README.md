@@ -1,6 +1,12 @@
 # SysmoNeo4j
 Open Source Tool - Sysmon Neo4j Visulaizer
 
+SysmonNeo4j.py:
+![art](./images/SysmonNeo4j.png)
+
+Zoom in:
+![art](./images/zoomin.jpeg)
+
 # **Prerequisites**
 
 1 - 4 Steps to run SysmoNeo4j Tool
@@ -42,12 +48,12 @@ Open Source Tool - Sysmon Neo4j Visulaizer
 
 # **Run SysmoNeo4j**
 ```
-// Default
-python SysmonNeo4j.py -s STARTTIME -e ENDTIME -u BOLT_URL -n USERNAME -p PASSWORD 
+python SysmonNeo4j.py -f SYSMONSAMPLE -s STARTTIME -e ENDTIME -u BOLT_URL -n USERNAME -p PASSWORD
+// Default Command
+python SysmonNeo4j.py -f SYSMONSAMPLE
 // Example Command
 .\SysmonNeo4j.py -s 2022-11-22-20:30:05 -e 2022-11-22-20:30:35 -f .\firstsample.evtx -p password -u neo4j -l "bolt://localhost:7687"
 .\SysmonNeo4j.py -s 2022-12-25-08:00:00 -e 2022-12-25-15:20:00 -f .\evtx_samples\secondsample.evtx -p password -u neo4j
-.\SysmonNeo4j.py -f .\evtx_samples\secondsample.evtx -p password -u neo4j 
 // Default Run Example in Ubuntu
-sudo python3 SysmonNeo4j.py -s STARTTIME -e ENDTIME -u BOLT_URL -n USERNAME -p PASSWORD 
+sudo python3 SysmonNeo4j.py -f SYSMONSAMPLE -s STARTTIME -e ENDTIME -u BOLT_URL -n USERNAME -p PASSWORD 
 ``` 

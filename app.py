@@ -23,7 +23,7 @@ class App:
 
     # Clear Database
     def clear(self):
-        # Clear Database from existing nodes and relationships
+        '''Clear Database from existing nodes and relationships'''
         query = """MATCH (n) optional MATCH (n)-[r]-() DELETE n,r"""
         session = self.driver.session()
         session.run(query)
@@ -35,7 +35,8 @@ class App:
         session = self.driver.session()
         processes_json_path = "processes.json"
         upload_query_path = Path(Path.cwd(), "CypherScripts", "UploadProcessEvents.cypher")
-        upload_query = open(upload_query_path).read()
+        with open(upload_query_path, encoding='utf-8') as file:
+            upload_query = file.read()
         session.run(upload_query, file=processes_json_path)
         print("\nProcess events insertion completed.")
     
@@ -44,7 +45,8 @@ class App:
         session = self.driver.session()
         files_json_path = "files.json"
         upload_query_path = Path(Path.cwd(), "CypherScripts", "UploadFileEvents.cypher")
-        upload_query = open(upload_query_path).read()
+        with open(upload_query_path, encoding='utf-8') as file:
+            upload_query = file.read()
         session.run(upload_query, file=files_json_path)
         print("\nFile events insertion completed.")
 
@@ -53,7 +55,8 @@ class App:
         session = self.driver.session()
         registry_json_path = "registry.json"
         upload_query_path = Path(Path.cwd(), "CypherScripts", "UploadRegistryEvents.cypher")
-        upload_query = open(upload_query_path).read()
+        with open(upload_query_path, encoding='utf-8') as file:
+            upload_query = file.read()
         session.run(upload_query, file=registry_json_path)
         print("\nRegistry events insertion completed.")
 
@@ -76,12 +79,10 @@ def write_json(data, event_type):
     :param data: json list of events (processes/registry/files/etc)
     :param event_type: (to defer which .json is created) processes,files...
     write data to .json in import folder.
-    :TODO: clear event_type.json if exists
     """
     path = (Path(import_dir,event_type)).with_suffix(".json")
-    with open(path, "w") as write:
+    with open(path, "w", encoding='utf-8') as write:
         json.dump(data, write)
-
 
 
 # Clear events Directory

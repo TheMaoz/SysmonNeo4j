@@ -1,9 +1,8 @@
 from app import write_json
 
-
 def registry_events_insertion(registry_events):
     """
-    This function receives a list of registry events (id 12&13),
+    This function receives a list of registry events (id 12,13,14),
     parse it and save the output to the DBMS import directory.
     """
     registry = []
