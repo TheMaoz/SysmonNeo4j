@@ -1,15 +1,9 @@
 # SysmoNeo4j
-Open Source Tool - Sysmon Neo4j Visulaizer
-
-SysmonNeo4j.py:
-![art](./images/SysmonNeo4j.png)
-
-Zoom in:
-![art](./images/zoomin.jpeg)
+Open Source Tool - Sysmon Neo4j Visulaizer.
+Usefull for 
 
 # **Prerequisites**
-
-1 - 4 Steps to run SysmoNeo4j Tool
+Follow steps 1 - 4  to run SysmoNeo4j Tool
 
 ### **1) Download and Install Neo4j Desktop**
    - Windows Users: https://neo4j.com/download/
@@ -57,3 +51,8 @@ python SysmonNeo4j.py -f SYSMONSAMPLE
 // Default Run Example in Ubuntu
 sudo python3 SysmonNeo4j.py -f SYSMONSAMPLE -s STARTTIME -e ENDTIME -u BOLT_URL -n USERNAME -p PASSWORD 
 ``` 
+SysmonNeo4j.py:
+![art](./images/SysmonNeo4j.png)
+
+Zoom in:
+![art](./images/zoomin.jpeg)
