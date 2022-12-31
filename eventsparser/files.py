@@ -16,7 +16,7 @@ def file_events_insertion(file_events):
         target_file = event_data['TargetFilename']
         
         # File creation.
-        if event_id == 11 and target_file not in target_files_list:
+        if event_id == 11:
             target_files_list.append(target_file)
             event_data["Description"] = "Process was created."
             files[target_file] = event_data

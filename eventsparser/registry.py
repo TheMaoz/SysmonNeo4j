@@ -1,9 +1,9 @@
 from app import write_json
 
-# ToDo: Chcek for diffrence between id 12,13,14.
+
 def registry_events_insertion(registry_events):
     """
-    This function recives a list of registry events (id 12&13),
+    This function receives a list of registry events (id 12&13),
     parse it and save the output to the DBMS import directory.
     """
     registry = []

@@ -1,2 +1,2 @@
-MATCH (process_file:Process),(childFile:File) WHERE process_file.ProcessId = childFile.ProcessId
-CREATE (process_file)-[r_file:ACCESSED_FILE]->(childFile)
+MATCH (process:Process),(file:File) WHERE process.ProcessId = file.ProcessId
+CREATE (process)-[r_file:ACCESSED_FILE]->(file)
