@@ -1,8 +1,10 @@
 from app import write_json
-import json
 
 def process_events_insertion(process_events):
-    # This function receives a list of process events,parse it and save the output to the DBMS import directory.
+    '''
+    This function receives a list of process events,
+    parse it and save the output to the DBMS import directory.
+    '''
     pid_list = []
     processes = {}
     # Iterate through process events.
