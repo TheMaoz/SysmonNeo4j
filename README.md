@@ -54,4 +54,4 @@ SysmonNeo4j.py:
 ![art](./images/SysmonNeo4j.png)
 
 Zoom in:
-![art](./images/zoomin.jpeg)
+![art](./images/zoomin.png)
