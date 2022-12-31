@@ -52,7 +52,8 @@ python SysmonNeo4j.py -f SYSMONSAMPLE
 // Default Run Example in Ubuntu
 sudo python3 SysmonNeo4j.py -f SYSMONSAMPLE -s STARTTIME -e ENDTIME -u BOLT_URL -n USERNAME -p PASSWORD 
 ``` 
-- SysmonNeo4j.py:
+SysmonNeo4j.py:
 ![art](./images/SysmonNeo4j.png)
-- Zoom in:
+
+Zoom in:
 ![art](./images/zoomin.png)
