@@ -1,4 +1,4 @@
-# SysmoNeo4j
+# SysmonNeo4j
 Open Source Tool - Sysmon Neo4j Visualizer.
 
 # **Prerequisites**
@@ -35,25 +35,54 @@ Follow steps 1 - 4  to run SysmonNeo4j.py
        
 ### **3) Install requirements.txt**
    - SysmonNeo4j Uses: evtx, neo4j
-    ``` 
+
     virtualenv venv 
     .\venv\Scripts\activate
     pip install -r requirements.txt 
-    ```    
+        
 
-# **Run SysmoNeo4j**
+# **Run SysmonNeo4j**
+Default Command:
 ```
 python SysmonNeo4j.py -f SYSMONSAMPLE -s STARTTIME -e ENDTIME -u BOLT_URL -n USERNAME -p PASSWORD
-// Default Command
+```
+Shortened Command:
+```
 python SysmonNeo4j.py -f SYSMONSAMPLE
-// Example Command
-.\SysmonNeo4j.py -s 2022-11-22-20:30:05 -e 2022-11-22-20:30:35 -f .\firstsample.evtx -p password -u neo4j -l "bolt://localhost:7687"
+```
+Example Command, using the provided sysmon recordings for demonstration:
+```
+.\SysmonNeo4j.py -s 2022-11-22-20:30:05 -e 2022-11-22-20:30:35 -f .\evtx_samples\firstsample.evtx -p password -u neo4j 
 .\SysmonNeo4j.py -s 2022-12-25-08:00:00 -e 2022-12-25-15:20:00 -f .\evtx_samples\secondsample.evtx -p password -u neo4j
-// Default Run Example in Ubuntu
+``` 
+Default Run Example in Ubuntu
+``` 
 sudo python3 SysmonNeo4j.py -f SYSMONSAMPLE -s STARTTIME -e ENDTIME -u BOLT_URL -n USERNAME -p PASSWORD 
 ``` 
-SysmonNeo4j.py:
+# **About the subject of run time and memory usage**
+- While it is possible to load entire .evtx samples into the neo4j DB using ```python SysmonNeo4j.py -f SYSMONSAMPLE```,
+we recommend using the ```-s STARTTIME``` and ```-e ENDTIME``` arguments to upload a selected timerange to Neo4j. 
+    
+    Make sure to filter your events using the ```systemtime``` attribute.
+
+
+- If you still wish to load entire samples to the database, we recommend modifying the DBMS's memory and heap capacities, 
+using the following lines in the ```neo4j.conf``` file (can be found under ```Settings...```, or in the ```conf``` folder of your DBMS.):
+```
+dbms.memory.heap.initial_size=512m
+dbms.memory.heap.max_size=1G
+dbms.memory.pagecache.size=512m
+// Modify these values according to your preferences and system resources.
+```
+- In order to show a large amount of nodes (default is 300), run this command in your Neo4j shell:
+
+```
+:config initialNodeDisplay: x
+// x representing the amount of nodes to be shown. 
+```
+Note that this WILL be resource intensive, and thus slower.
+
+# **SysmonNeo4j.py:**
 ![art](./images/SysmonNeo4j.png)
 
-Zoom in:
 ![art](./images/zoomin.png)
