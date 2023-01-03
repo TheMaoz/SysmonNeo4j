@@ -20,18 +20,26 @@ Follow steps 1 - 4  to run SysmonNeo4j.py
        - Create a new database in GUI: Just click the (+), set DB Name, Username and Password. Useful Tutorial: https://www.sqlshack.com/getting-started-with-the-neo4j-graph-database/
        - Through Neo4j Shell: https://neo4j.com/docs/cypher-manual/current/databases/
    - Configure Database:
-     - Install APOC Plugin:
-       - Windows Users: In Neo4j Desktop Main Page --> Choose your Database --> Click Plugins --> APOC --> Install
-     
-     - Configure Database Apoc Settings File:
-       - Windows Users: On the DBMS click on the three dots then select Open folder --> DBMS.
-          - navigate to the "conf" folder.
-          - Create a file named "apoc.conf" and insert following lines to it:
-         ```
-         apoc.export.file.enabled=true
-         apoc.import.file.enabled=true
-         ```
-         Restart DBMS and reload it.
+       - By default, ```SysmonNeo4j.py``` will use the arguments below (if not explicitly provided in the CLI):
+       ```
+     --url:"bolt://localhost:7687"
+     --username:"neo4j"
+     --password:"password"
+     ```
+   So make sure to use these values while creating the DBMS for the default values to work.
+
+       - Install APOC Plugin:
+         - Windows Users: In Neo4j Desktop Main Page --> Choose your Database --> Click Plugins --> APOC --> Install
+   
+       - Configure Database Apoc Settings File:
+         - Windows Users: On the DBMS click on the three dots then select Open folder --> DBMS.
+            - navigate to the "conf" folder.
+            - Create a file named "apoc.conf" and insert following lines to it:
+           ```
+           apoc.export.file.enabled=true
+           apoc.import.file.enabled=true
+           ```
+           Restart DBMS and reload it.
        
 ### **3) Install requirements.txt**
    - SysmonNeo4j Uses: evtx, neo4j
@@ -47,6 +55,10 @@ Default Command:
 python SysmonNeo4j.py -f SYSMONSAMPLE -s STARTTIME -e ENDTIME -u BOLT_URL -n USERNAME -p PASSWORD
 ```
 Shortened Command:
+- The command below will upload the entire ```.evtx``` file to the DBMS,
+    using the default values mentioned above for the arguments:
+
+    ```-u\--url```,```-n\--username``` and ```-p\--password```
 ```
 python SysmonNeo4j.py -f SYSMONSAMPLE
 ```
@@ -74,6 +86,8 @@ dbms.memory.heap.max_size=1G
 dbms.memory.pagecache.size=512m
 // Modify these values according to your preferences and system resources.
 ```
+
+# **General user experience and preferences in Neo4j Browser**
 - In order to show a large amount of nodes (default is 300), run this command in your Neo4j shell:
 
 ```
@@ -82,6 +96,11 @@ dbms.memory.pagecache.size=512m
 ```
 Note that this WILL be resource intensive, and thus slower.
 
+- By clicking a node, a data menu will open in the left corner of the graph, presenting the node's description and values.
+
+    in said menu, you can customize the visual output to your liking;
+
+    selecting a node type's color, as well as choosing the value to be shown for each node type in the graph.
 # **SysmonNeo4j.py:**
 ![art](./images/SysmonNeo4j.png)
 
