@@ -29,7 +29,7 @@ Follow steps 1 - 4  to run SysmonNeo4j.py
    So make sure to use these values while creating the DBMS for the default values to work.
 
        - Install APOC Plugin:
-         - Windows Users: In Neo4j Desktop Main Page --> Choose your Database --> Click Plugins --> APOC --> Install
+         - Windows Users (Open the window in full screen): In Neo4j Desktop Main Page --> Choose your Database --> Click Plugins --> APOC --> Install
    
        - Configure Database Apoc Settings File:
          - Windows Users: On the DBMS click on the three dots then select Open folder --> DBMS.
