@@ -1,7 +1,7 @@
 import argparse
 from pathlib import Path
 from datetime import datetime
-from app import App,clear_directory
+from app import App,clear_import_directory
 from eventsparser import *
 
 def valid_datetime(str_input):
@@ -22,7 +22,7 @@ def valid_evtx_file(param):
 def run(url_db, username, password, file_path, start_time, end_time):
     app = App(url_db, username, password)
     app.set_import_dir()
-    clear_directory()
+    clear_import_directory()
     app.clear()
     app.close()
     
@@ -32,13 +32,16 @@ def run(url_db, username, password, file_path, start_time, end_time):
     else:
         events_list = filter_events_by_time(get_json_from_sample(file_path), start_time, end_time)
     process_events, file_events, registry_events, network_events = divide_events(events_list)
+    
     process_events_insertion(process_events)
     file_events_insertion(file_events)
     registry_events_insertion(registry_events)
+    network_events_insertion(network_events)
     app = App(url_db, username, password)
     app.upload_processes_events()
     app.upload_files_events()
     app.upload_registry_events()
+    app.upload_network_events()
     app.set_nodes_relationship()
     app.close()
 

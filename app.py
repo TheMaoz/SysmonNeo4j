@@ -60,6 +60,16 @@ class App:
         session.run(upload_query, file=registry_json_path)
         print("\nRegistry events insertion completed.")
 
+    # Network - Event id 3.
+    def upload_network_events(self):
+        session = self.driver.session()
+        network_json_path = "network.json"
+        upload_query_path = Path(Path.cwd(), "CypherScripts", "UploadNetworkEvents.cypher")
+        with open(upload_query_path, encoding='utf-8') as file:
+            upload_query = file.read()
+        session.run(upload_query, file=network_json_path)
+        print("\nNetwork events insertion completed.")
+
 
     def set_nodes_relationship(self):
         """This function run Cyphers that set the relationship between the nodes"""
@@ -86,6 +96,6 @@ def write_json(data, event_type):
 
 
 # Clear events Directory
-def clear_directory():
+def clear_import_directory():
     for file in os.listdir(import_dir):
         os.remove(os.path.join(import_dir, file))
