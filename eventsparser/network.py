@@ -1,5 +1,4 @@
 from app import write_json
-import json
 
 def network_events_insertion(network_events):
     '''

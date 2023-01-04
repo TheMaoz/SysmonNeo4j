@@ -42,10 +42,10 @@ def filter_events_by_time(events, start_time, end_time):
     return logs
 
 
-def upload_sysmon_events(events, event_ids):
+def insert_sysmon_events(events, event_ids):
     """
     :desc This function gets a list of sysmon events,
-    divide them by object type ids and write them to the DBMS import dir.
+    divide them by object type ids and insert them into the DBMS import dir.
     :events List of Sysmon events(json).
     :event_ids: Dictionary of Sysmon event id values by object keys.
     """
