@@ -1,11 +1,11 @@
 CALL apoc.load.json($file) YIELD value AS ip
-MERGE (n:Ip {UtcTime: ip.UtcTime})
+MERGE (n:Ip {UtcTimes: ip.UtcTimes})
 SET n.Image = ip.Image
 SET n.ProcessGuid = ip.ProcessGuid
 SET n.ProcessId = ip.ProcessId
 SET n.RuleName = ip.RuleName
 SET n.User = ip.User
-SET n.UtcTime = ip.UtcTime
+SET n.UtcTimes = ip.UtcTimes
 SET n.Description = ip.Description
 SET n.Protocol = ip.Protocol
 SET n.Initiated = ip.Initiated

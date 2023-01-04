@@ -60,6 +60,7 @@ class App:
         session.run(upload_query, file=registry_json_path)
         print("\nRegistry events insertion completed.")
 
+    # Network - Event id 3.
     def upload_network_events(self):
         session = self.driver.session()
         network_json_path = "network.json"
