@@ -21,7 +21,7 @@ def valid_datetime(str_input):
         raise argparse.ArgumentTypeError(msg)
 
 def valid_evtx_file(param):
-    """Validates the file is an evtx (Windows event log) file"""
+    """Validates the file has an evtx (Windows event log) extension"""
     if Path(param).suffix != '.evtx':
         raise argparse.ArgumentTypeError('File must have an evtx extension')
     return param

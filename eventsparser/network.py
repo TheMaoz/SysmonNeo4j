@@ -2,10 +2,11 @@ from app import write_json
 
 def network_events_insertion(network_events):
     '''
-    This function receives a list of network events,
-    Aggregate network connections in dictionary keys, if Image[PID]->IP:PORT are the same.
+    :desc This function receives a list of network events,
+    aggregate network connections in dictionary keys, if Image[PID]->IP:PORT are the same.
     Stores the UTC times a connection was made for a specific key under 'UtcTimes' key.
-    save the output to the DBMS import directory.
+    Saves the output to the DBMS import directory.
+    network_events: list of Sysmon network events(3).
     '''
     networks = {}
     network_ids = []

@@ -1,10 +1,11 @@
 from app import write_json
 
-# ToDo: Check for difference between id 11,23.
+# ToDo: Check for difference between id 11,23, 26.
 def file_events_insertion(file_events):
     """
-    This function receives a list of file events,
+    :desc This function receives a list of file events,
     parse it and save the output to the DBMS import directory.
+    file_events: list of Sysmon file events(11, 23, 26).
     """
     target_files_list = []
     files = {}
