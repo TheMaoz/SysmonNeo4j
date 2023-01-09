@@ -1,6 +1,11 @@
 import json
 from datetime import datetime
 from evtx import PyEvtxParser
+from .processes import process_events_insertion
+from .files import file_events_insertion
+from .registry import registry_events_insertion
+from .network import network_events_insertion
+
 
 def get_json_from_sample(sample):
     """
@@ -37,33 +42,22 @@ def filter_events_by_time(events, start_time, end_time):
     return logs
 
 
-def divide_events(events):
+def insert_sysmon_events(events, event_ids):
     """
-    Takes a list of events and returns lists of events group by object types.
+    :desc This function gets a list of sysmon events,
+    divide them by object type ids and insert them into the DBMS import dir.
+    :events List of Sysmon events(json).
+    :event_ids: Dictionary of Sysmon event id values by object keys.
     """
-    process_events = []
-    file_events = []
-    registry_events = []
-    network_events = []
     
-    # Append events to relevant list.
-    for event in events:
-        event_id = event['Event']['System']['EventID']
-        
-        # Process events.
-        if event_id in (1, 5):
-            process_events.append(event)
-        
-        # File events.
-        elif event_id in (11, 23):
-            file_events.append(event)
-        
-        # Registry events.
-        elif event_id in (12,13,14):
-            registry_events.append(event)
-        
-        # Network events.
-        elif event_id == 3:
-            network_events.append(event)
-    return process_events, file_events, registry_events, network_events
+    # Creating lists of events group by object type.
+    process_events = [event for event in events if event['Event']['System']['EventID'] in event_ids['process']]
+    file_events = [event for event in events if event['Event']['System']['EventID'] in event_ids['file']]
+    registry_events = [event for event in events if event['Event']['System']['EventID'] in event_ids['registry']]
+    network_events = [event for event in events if event['Event']['System']['EventID'] in event_ids['network']]
     
+    # Inserting data to the DBMS import directory.
+    process_events_insertion(process_events)
+    file_events_insertion(file_events)
+    registry_events_insertion(registry_events)
+    network_events_insertion(network_events)

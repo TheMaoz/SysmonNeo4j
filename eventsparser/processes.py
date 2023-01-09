@@ -2,8 +2,11 @@ from app import write_json
 
 def process_events_insertion(process_events):
     '''
-    This function receives a list of process events,
-    parse it and save the output to the DBMS import directory.
+    desc:This function receives a list of process events, 
+    aggregate process events in dictionary keys, if Image[PID] are the same.
+    Stores the UTC times a process was terminated under 'EndUTCTime' key.
+    Saves the output to the DBMS import directory.
+    process_events: list of Sysmon process events(1 & 5).
     '''
     pid_list = []
     processes = {}

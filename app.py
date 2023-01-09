@@ -1,7 +1,7 @@
 import os
 import json
-from neo4j import GraphDatabase
 from pathlib import Path
+from neo4j import GraphDatabase
 
 
 class App:
@@ -40,7 +40,7 @@ class App:
         session.run(upload_query, file=processes_json_path)
         print("\nProcess events insertion completed.")
     
-    # Files - Event id 11 & 23.
+    # Files - Event id 11, 23, 26.
     def upload_files_events(self):
         session = self.driver.session()
         files_json_path = "files.json"
@@ -86,9 +86,10 @@ class App:
 
 def write_json(data, event_type):
     """
-    :param data: json list of events (processes/registry/files/etc)
-    :param event_type: (to defer which .json is created) processes,files...
-    write data to .json in import folder.
+    :desc This function recives list of events and the name of the event object.
+    write the data as .json in the DBMS import dir.
+    :data: list of json events.
+    :event_type: name of object type to defer which .json is created (processes/registry/files/etc).
     """
     path = (Path(import_dir,event_type)).with_suffix(".json")
     with open(path, "w", encoding='utf-8') as write:
@@ -97,5 +98,6 @@ def write_json(data, event_type):
 
 # Clear events Directory
 def clear_import_directory():
+    """Clear the DBMS import dir"""
     for file in os.listdir(import_dir):
         os.remove(os.path.join(import_dir, file))

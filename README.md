@@ -71,11 +71,11 @@ Default Run Example in Ubuntu
 ``` 
 sudo python3 SysmonNeo4j.py -f SYSMONSAMPLE -s STARTTIME -e ENDTIME -u BOLT_URL -n USERNAME -p PASSWORD 
 ``` 
-# **About the subject of run time and memory usage**
+# **Run time and memory usage**
 - While it is possible to load entire .evtx samples into the neo4j DB using ```python SysmonNeo4j.py -f SYSMONSAMPLE```,
 we recommend using the ```-s STARTTIME``` and ```-e ENDTIME``` arguments to upload a selected timerange to Neo4j. 
     
-    Make sure to filter your events using the ```systemtime``` attribute.
+    Make sure to filter your events using the ```SystemTime``` attribute.
 
 
 - If you still wish to load entire samples to the database, we recommend modifying the DBMS's memory and heap capacities, 
@@ -101,6 +101,13 @@ Note that this WILL be resource intensive, and thus slower.
     in said menu, you can customize the visual output to your liking;
 
     selecting a node type's color, as well as choosing the value to be shown for each node type in the graph.
+
+- For a dracula theme, run this command in your Neo4j shell:
+
+```
+:config theme: "dark"
+```
+
 # **SysmonNeo4j.py:**
 ![art](./images/SysmonNeo4j.png)
 
