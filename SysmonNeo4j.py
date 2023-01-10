@@ -35,9 +35,12 @@ def run(url_db, username, password, file_path, start_time, end_time):
     app.close()
     
     # Time range args has not been set.
-    if start_time is None or end_time is None:
+    if None in (start_time, end_time):
+        print("\nTime range arguments has not been set.")
+        print(f"\nScanning the entire {Path(file_path).name} sample.")
         events_list = get_json_from_sample(file_path)
     else:
+        print(f"\nScanning the {Path(file_path).name} sample between: {start_time} - {end_time}.")
         events_list = filter_events_by_time(get_json_from_sample(file_path), start_time, end_time)
     
     insert_sysmon_events(events_list, SYSMON_EVENT_IDS)
