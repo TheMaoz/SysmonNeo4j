@@ -11,10 +11,10 @@ class App:
         self.driver = GraphDatabase.driver(url, auth=(username, password))
 
     def set_import_dir(self):
-        global import_dir
+        global IMPORT_DIR
         session = self.driver.session()
         result = session.run("Call dbms.listConfig() YIELD name, value WHERE name='server.directories.import' RETURN value")
-        import_dir = [record["value"] for record in result][0]
+        IMPORT_DIR = [record["value"] for record in result][0]
 
 
     # Don't forget to close the driver connection when you are finished with it
@@ -86,12 +86,12 @@ class App:
 
 def write_json(data, event_type):
     """
-    :desc This function recives list of events and the name of the event object.
+    :desc This function receives list of events and the name of the event object.
     write the data as .json in the DBMS import dir.
     :data: list of json events.
     :event_type: name of object type to defer which .json is created (processes/registry/files/etc).
     """
-    path = (Path(import_dir,event_type)).with_suffix(".json")
+    path = (Path(IMPORT_DIR,event_type)).with_suffix(".json")
     with open(path, "w", encoding='utf-8') as write:
         json.dump(data, write)
 
@@ -99,5 +99,5 @@ def write_json(data, event_type):
 # Clear events Directory
 def clear_import_directory():
     """Clear the DBMS import dir"""
-    for file in os.listdir(import_dir):
-        os.remove(os.path.join(import_dir, file))
+    for file in os.listdir(IMPORT_DIR):
+        os.remove(os.path.join(IMPORT_DIR, file))

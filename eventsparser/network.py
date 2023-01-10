@@ -18,10 +18,9 @@ def network_events_insertion(network_events):
         pid = event_data['ProcessId']
         dst_ip = event_data['DestinationIp']
         dst_port = event_data['DestinationPort']
-
         network_id = f"{image}[{pid}]->{dst_ip}:{dst_port}"
         
-        # Check if a network connection key allready exists.
+        # Check if a network connection key already exists.
         if network_id not in network_ids:
             utc_times = []
             utc_times.append(event_data.pop('UtcTime',None))
