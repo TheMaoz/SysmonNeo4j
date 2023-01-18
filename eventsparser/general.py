@@ -51,11 +51,16 @@ def insert_sysmon_events(events, event_ids):
     """
     
     # Creating lists of events group by object type.
+    sysmon_config_events = [event for event in events if event['Event']['System']['EventID'] in event_ids['config']]
+    for event in sysmon_config_events:
+        print(json.dumps(event ,indent=4))
+        return
     process_events = [event for event in events if event['Event']['System']['EventID'] in event_ids['process']]
     file_events = [event for event in events if event['Event']['System']['EventID'] in event_ids['file']]
     registry_events = [event for event in events if event['Event']['System']['EventID'] in event_ids['registry']]
     network_events = [event for event in events if event['Event']['System']['EventID'] in event_ids['network']]
-    
+
+
     # Inserting data to the DBMS import directory.
     process_events_insertion(process_events)
     file_events_insertion(file_events)

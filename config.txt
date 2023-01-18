@@ -1,0 +1,51 @@
+sysmonids as global in app.py
+iteration hell
+
+
+{
+    "Event": {
+        "#attributes": {
+            "xmlns": "http://schemas.microsoft.com/win/2004/08/events/event"
+        },
+        "EventData": {
+            "SchemaVersion": "4.83",
+            "State": "Started",
+            "UtcTime": "2023-01-01 16:07:05.945",
+            "Version": "14.12"
+        },
+        "System": {
+            "Channel": "Microsoft-Windows-Sysmon/Operational",
+            "Computer": "DESKTOP-6QPQIFS",
+            "Correlation": null,
+            "EventID": 4,
+            "EventRecordID": 2,
+            "Execution": {
+                "#attributes": {
+                    "ProcessID": 5400,
+                    "ThreadID": 2008
+                }
+            },
+            "Keywords": "0x8000000000000000",
+            "Level": 4,
+            "Opcode": 0,
+            "Provider": {
+                "#attributes": {
+                    "Guid": "5770385F-C22A-43E0-BF4C-06F5698FFBD9",
+                    "Name": "Microsoft-Windows-Sysmon"
+                }
+            },
+            "Security": {
+                "#attributes": {
+                    "UserID": "S-1-5-18"
+                }
+            },
+            "Task": 4,
+            "TimeCreated": {
+                "#attributes": {
+                    "SystemTime": "2023-01-01T16:07:05.952946Z"
+                }
+            },
+            "Version": 3
+        }
+    }
+}
