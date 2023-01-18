@@ -1,4 +1,3 @@
-from app import write_json
 
 def process_events_insertion(process_events):
     '''
@@ -38,7 +37,3 @@ def process_events_insertion(process_events):
             process_ids.append(process_id)
             event_data["Description"] = "Process was terminated."
             processes[process_id] = event_data
-        
-        
-    write_json(list(processes.values()), "processes")
-
