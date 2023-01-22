@@ -31,7 +31,7 @@ def valid_evtx_file(param):
 def run(url_db, username, password, file_path, start_time, end_time):
     app = App(url_db, username, password)
     app.set_import_dir()
-    #clear_import_directory()
+    clear_import_directory()
     app.clear()
     app.close()
     
@@ -50,6 +50,7 @@ def run(url_db, username, password, file_path, start_time, end_time):
     app.upload_files_events()
     app.upload_registry_events()
     app.upload_network_events()
+    app.upload_config_events()
     app.set_nodes_relationship()
     app.close()
 

@@ -1,12 +1,10 @@
-CALL apoc.load.json($file) YIELD value AS file
-MERGE (n:File {TargetFilename: file.TargetFilename})
-SET n.CreationUtcTime = file.CreationUtcTime
-SET n.Image = file.Image
-SET n.ProcessGuid = file.ProcessGuid
-SET n.ProcessId = file.ProcessId
-SET n.RuleName = file.RuleName
-SET n.TargetFilename = file.TargetFilename
-SET n.User = file.User
-SET n.CreationTime = file.UtcTime
-SET n.DeletionTime = file.EndUTCTime
-SET n.Description = file.Description
+CALL apoc.load.json($file) YIELD value AS conf
+MERGE (n:Config {Description: conf.Description})
+SET n.SchemaVersion = conf.SchemaVersion
+SET n.State = conf.State
+SET n.UtcTime = conf.UtcTime
+SET n.ProcessId = conf.ProcessId
+SET n.Version = conf.Version
+// event id 16
+SET n.ConfigurationFile = conf.Configuration
+SET n.ConfigurationFileHash = conf.ConfigurationFileHash
