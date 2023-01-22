@@ -2,7 +2,7 @@ import argparse
 from pathlib import Path
 from datetime import datetime
 from app import App
-from eventsparser.general import *
+from eventsparser.general import get_json_from_sample, filter_events_by_time
 from eventsparser.insertion import Insertion
 
 SYSMON_EVENT_IDS = {
@@ -47,8 +47,7 @@ def run(url_db, username, password, file_path, start_time, end_time):
         events_list = filter_events_by_time(
             get_json_from_sample(file_path), start_time, end_time)
 
-    inserter = Insertion(app, events_list, SYSMON_EVENT_IDS)
-    #insert_sysmon_events(events_list, SYSMON_EVENT_IDS)
+    Insertion(app, events_list, SYSMON_EVENT_IDS)
     app = App(url_db, username, password)
     app.upload_processes_events()
     app.upload_files_events()

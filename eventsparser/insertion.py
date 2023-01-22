@@ -10,6 +10,7 @@ class Insertion:
     def __init__(self, app, events, event_ids) -> None:
 
         self.app = app
+        
         # Creating lists of events group by object type.
         self.process_events = [event for event in events if event['Event']
                                ['System']['EventID'] in event_ids['process']]
@@ -34,9 +35,8 @@ class Insertion:
         :event_type: name of object type to defer which .json is created (processes/registry/files/etc).
         """
 
-        def inner(self, data, event_type):
-            data, event_type = func(self, data, event_type)
-            print(self.app.import_dir)
+        def inner(self, events):
+            data, event_type = func(self, events)
             path = (Path(self.app.import_dir, event_type)).with_suffix(".json")
             with open(path, "w", encoding='utf-8') as write:
                 json.dump(data, write)

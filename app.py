@@ -1,16 +1,14 @@
 import os
-import json
 from pathlib import Path
 from neo4j import GraphDatabase
 
-
 class App:
-
-    # Initializing Neo4j Driver
+    # Initializing the Neo4j Driver.
     def __init__(self, url, username, password):
         self.driver = GraphDatabase.driver(url, auth=(username, password))
         self.import_dir = self.set_import_dir()
-
+    
+    # Set the DBMS import directory.
     def set_import_dir(self):
         session = self.driver.session()
         result = session.run(
@@ -18,11 +16,10 @@ class App:
         return [record["value"] for record in result][0]
 
     # Don't forget to close the driver connection when you are finished with it
-
     def close(self):
         self.driver.close()
 
-    # Clear Database
+    # Clear the database.
     def clear(self):
         '''Clear Database from existing nodes and relationships'''
         query = """MATCH (n) optional MATCH (n)-[r]-() DELETE n,r"""
@@ -88,7 +85,7 @@ class App:
                 session.run(file.read())
         print("\nNodes relationship has been set.")
 
-    # Clear events Directory
+    # Clear DBMS import directory.
     def clear_import_directory(self):
         """Clear the DBMS import dir"""
         for file in os.listdir(self.import_dir):
