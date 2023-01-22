@@ -1,8 +1,9 @@
 import argparse
 from pathlib import Path
 from datetime import datetime
-from app import App,clear_import_directory
-from eventsparser.general import *
+from app import App
+from eventsparser.general import get_json_from_sample, filter_events_by_time
+from eventsparser.insertion import Insertion
 
 SYSMON_EVENT_IDS = {
         "process" : [1,5],
@@ -13,6 +14,7 @@ SYSMON_EVENT_IDS = {
     }
 
 
+
 def valid_datetime(str_input):
     """Validates that the user input is a datetime string"""
     try:
@@ -20,6 +22,7 @@ def valid_datetime(str_input):
     except ValueError:
         msg = f"not a valid time: {str_input}"
         raise argparse.ArgumentTypeError(msg)
+
 
 def valid_evtx_file(param):
     """Validates the file has an evtx (Windows event log) extension"""
@@ -31,20 +34,22 @@ def valid_evtx_file(param):
 def run(url_db, username, password, file_path, start_time, end_time):
     app = App(url_db, username, password)
     app.set_import_dir()
-    clear_import_directory()
+    app.clear_import_directory()
     app.clear()
     app.close()
-    
+
     # Time range args has not been set.
     if None in (start_time, end_time):
         print("\nTime range arguments has not been set.")
         print(f"\nScanning the entire {Path(file_path).name} sample.")
         events_list = get_json_from_sample(file_path)
     else:
-        print(f"\nScanning the {Path(file_path).name} sample between: {start_time} - {end_time}.")
-        events_list = filter_events_by_time(get_json_from_sample(file_path), start_time, end_time)
-    
-    insert_sysmon_events(events_list, SYSMON_EVENT_IDS)
+        print(
+            f"\nScanning the {Path(file_path).name} sample between: {start_time} - {end_time}.")
+        events_list = filter_events_by_time(
+            get_json_from_sample(file_path), start_time, end_time)
+
+    Insertion(app, events_list, SYSMON_EVENT_IDS)
     app = App(url_db, username, password)
     app.upload_processes_events()
     app.upload_files_events()

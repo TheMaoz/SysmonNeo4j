@@ -1,11 +1,6 @@
 import json
 from datetime import datetime
 from evtx import PyEvtxParser
-from .processes import process_events_insertion
-from .files import file_events_insertion
-from .registry import registry_events_insertion
-from .network import network_events_insertion
-from .sysmon_config_events import config_events_insertion
 
 def get_json_from_sample(sample):
     """

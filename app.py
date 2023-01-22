@@ -1,27 +1,25 @@
 import os
-import json
 from pathlib import Path
 from neo4j import GraphDatabase
 
-
 class App:
-
-    # Initializing Neo4j Driver
+    # Initializing the Neo4j Driver.
     def __init__(self, url, username, password):
         self.driver = GraphDatabase.driver(url, auth=(username, password))
-
+        self.import_dir = self.set_import_dir()
+    
+    # Set the DBMS import directory.
     def set_import_dir(self):
-        global IMPORT_DIR
         session = self.driver.session()
-        result = session.run("Call dbms.listConfig() YIELD name, value WHERE name='server.directories.import' RETURN value")
-        IMPORT_DIR = [record["value"] for record in result][0]
-
+        result = session.run(
+            "Call dbms.listConfig() YIELD name, value WHERE name='server.directories.import' RETURN value")
+        return [record["value"] for record in result][0]
 
     # Don't forget to close the driver connection when you are finished with it
     def close(self):
         self.driver.close()
 
-    # Clear Database
+    # Clear the database.
     def clear(self):
         '''Clear Database from existing nodes and relationships'''
         query = """MATCH (n) optional MATCH (n)-[r]-() DELETE n,r"""
@@ -34,17 +32,19 @@ class App:
     def upload_processes_events(self):
         session = self.driver.session()
         processes_json_path = "processes.json"
-        upload_query_path = Path(Path.cwd(), "CypherScripts", "UploadProcessEvents.cypher")
+        upload_query_path = Path(
+            Path.cwd(), "CypherScripts", "UploadProcessEvents.cypher")
         with open(upload_query_path, encoding='utf-8') as file:
             upload_query = file.read()
         session.run(upload_query, file=processes_json_path)
         print("\nProcess events insertion completed.")
-    
+
     # Files - Event id 11, 23, 26.
     def upload_files_events(self):
         session = self.driver.session()
         files_json_path = "files.json"
-        upload_query_path = Path(Path.cwd(), "CypherScripts", "UploadFileEvents.cypher")
+        upload_query_path = Path(
+            Path.cwd(), "CypherScripts", "UploadFileEvents.cypher")
         with open(upload_query_path, encoding='utf-8') as file:
             upload_query = file.read()
         session.run(upload_query, file=files_json_path)
@@ -54,7 +54,8 @@ class App:
     def upload_registry_events(self):
         session = self.driver.session()
         registry_json_path = "registry.json"
-        upload_query_path = Path(Path.cwd(), "CypherScripts", "UploadRegistryEvents.cypher")
+        upload_query_path = Path(
+            Path.cwd(), "CypherScripts", "UploadRegistryEvents.cypher")
         with open(upload_query_path, encoding='utf-8') as file:
             upload_query = file.read()
         session.run(upload_query, file=registry_json_path)
@@ -64,11 +65,13 @@ class App:
     def upload_network_events(self):
         session = self.driver.session()
         network_json_path = "network.json"
-        upload_query_path = Path(Path.cwd(), "CypherScripts", "UploadNetworkEvents.cypher")
+        upload_query_path = Path(
+            Path.cwd(), "CypherScripts", "UploadNetworkEvents.cypher")
         with open(upload_query_path, encoding='utf-8') as file:
             upload_query = file.read()
         session.run(upload_query, file=network_json_path)
         print("\nNetwork events insertion completed.")
+
 
     # Sysmon Configuration Change events - Event id 4,16.
     def upload_config_events(self):
@@ -79,35 +82,22 @@ class App:
             upload_query = file.read()
         session.run(upload_query, file=network_json_path)
         print("\nSysmon Configuration Change events insertion completed.")
-
-
+      
     def set_nodes_relationship(self):
         """This function run Cyphers that set the relationship between the nodes"""
         session = self.driver.session()
-        relation_queries_path = Path(Path.cwd(), "CypherScripts", "RelationsCyphers")
+        relation_queries_path = Path(
+            Path.cwd(), "CypherScripts", "RelationsCyphers")
         query_paths = (relation_queries_path.iterdir())
-        
+
         # Run each relation query.
         for query_path in query_paths:
             with open(query_path, encoding='utf-8') as file:
                 session.run(file.read())
         print("\nNodes relationship has been set.")
 
-
-def write_json(data, event_type):
-    """
-    :desc This function receives list of events and the name of the event object.
-    write the data as .json in the DBMS import dir.
-    :data: list of json events.
-    :event_type: name of object type to defer which .json is created (processes/registry/files/etc).
-    """
-    path = (Path(IMPORT_DIR,event_type)).with_suffix(".json")
-    with open(path, "w", encoding='utf-8') as write:
-        json.dump(data, write)
-
-
-# Clear events Directory
-def clear_import_directory():
-    """Clear the DBMS import dir"""
-    for file in os.listdir(IMPORT_DIR):
-        os.remove(os.path.join(IMPORT_DIR, file))
+    # Clear DBMS import directory.
+    def clear_import_directory(self):
+        """Clear the DBMS import dir"""
+        for file in os.listdir(self.import_dir):
+            os.remove(os.path.join(self.import_dir, file))
