@@ -2,7 +2,6 @@ import json
 from datetime import datetime
 from evtx import PyEvtxParser
 
-
 def get_json_from_sample(sample):
     """
     :desc: This function gets sysmon sample of type evtx and returns a list of sysmon events
@@ -51,9 +50,11 @@ def insert_sysmon_events(events, event_ids):
     file_events = [event for event in events if event['Event']['System']['EventID'] in event_ids['file']]
     registry_events = [event for event in events if event['Event']['System']['EventID'] in event_ids['registry']]
     network_events = [event for event in events if event['Event']['System']['EventID'] in event_ids['network']]
-    
+    sysmon_config_events = [event for event in events if event['Event']['System']['EventID'] in event_ids['config']]
+
     # Inserting data to the DBMS import directory.
     process_events_insertion(process_events)
     file_events_insertion(file_events)
     registry_events_insertion(registry_events)
     network_events_insertion(network_events)
+    config_events_insertion(sysmon_config_events)

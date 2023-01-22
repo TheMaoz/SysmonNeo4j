@@ -6,11 +6,13 @@ from eventsparser.general import get_json_from_sample, filter_events_by_time
 from eventsparser.insertion import Insertion
 
 SYSMON_EVENT_IDS = {
-    "process": [1, 5],
-    "file": [11, 23, 26],
-    "registry": [12, 13, 14],
-    "network": [3],
-}
+        "process" : [1,5],
+        "file" : [11,23,26],
+        "registry" : [12,13,14],
+        "network" : [3],
+        "config" : [4,16]
+    }
+
 
 
 def valid_datetime(str_input):
@@ -53,6 +55,7 @@ def run(url_db, username, password, file_path, start_time, end_time):
     app.upload_files_events()
     app.upload_registry_events()
     app.upload_network_events()
+    app.upload_config_events()
     app.set_nodes_relationship()
     app.close()
 
