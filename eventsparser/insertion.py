@@ -20,12 +20,15 @@ class Insertion:
                                 ['System']['EventID'] in event_ids['registry']]
         self.network_events = [event for event in events if event['Event']
                                ['System']['EventID'] in event_ids['network']]
+        self.sysmon_config_events = [event for event in events if event['Event']
+                               ['System']['EventID'] in event_ids['config']]
 
         # Inserting data to the DBMS import directory.
         self.process_events_insertion(self.process_events)
         self.file_events_insertion(self.file_events)
         self.registry_events_insertion(self.registry_events)
         self.network_events_insertion(self.network_events)
+        self.config_events_insertion(self.sysmon_config_events)
 
     def write_json(func):
         """
@@ -212,5 +215,6 @@ class Insertion:
             event_data = event['Event']['EventData']
             event_data.update({"Description": desc})
             events.append(event_data)
-        #return list(events.values()), "network"
+        return events, "sysmon_config"
+
         #write_json(events, "sysmon_config_events")

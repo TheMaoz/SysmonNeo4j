@@ -73,15 +73,15 @@ class App:
         print("\nNetwork events insertion completed.")
 
 
-    # Sysmon Configuration Change events - Event id 4,16.
+    # Sysmon configuration events - Event id 4 & 16.
     def upload_config_events(self):
         session = self.driver.session()
-        network_json_path = "sysmon_config_events.json"
+        network_json_path = "sysmon_config.json"
         upload_query_path = Path(Path.cwd(), "CypherScripts", "UploadSysmonConfigEvents.cypher")
         with open(upload_query_path, encoding='utf-8') as file:
             upload_query = file.read()
         session.run(upload_query, file=network_json_path)
-        print("\nSysmon Configuration Change events insertion completed.")
+        print("\nSysmon configuration events insertion completed.")
       
     def set_nodes_relationship(self):
         """This function run Cyphers that set the relationship between the nodes"""

@@ -34,7 +34,7 @@ def valid_evtx_file(param):
 def run(url_db, username, password, file_path, start_time, end_time):
     app = App(url_db, username, password)
     app.set_import_dir()
-    app.clear_import_directory()
+    #app.clear_import_directory()
     app.clear()
     app.close()
 
